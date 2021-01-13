@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+profile detail
+{% endblock title %}
+
+{% block content %}
+<div class="ui grid">
+    <br>
+    <div class="row">
+        <div class="four wide column">
+            <img class="ui medium rounded image" src={{object.avatar.url}}>
+            <h1>{{object.user}}</h1>
+            <div class="ui vertical fluid menu">
+                <div class="item">
+                    Sites
+                    <div class="ui label">{{ object.get_sites_no }}</div>
+                </div>
+
+                <div class="item">
+                    Pages
+                    <div class="ui label">{{ object.get_pages_no }}</div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="twelve wide column">
+            {% if len_sites %}
+                {% for site in sites %}
+                    <div class="segment ui fluid">
+                        {{site.url}}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h1>No sites of this user ...</h1>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

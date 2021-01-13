@@ -1,0 +1,1097 @@
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="https://www.telecomprocess.com/main/assets/images/favicon.png">
+    <title>Nice admin Template - The Ultimate Multipurpose admin template</title>
+	<link rel="canonical" href="" />
+    <!-- Custom CSS -->
+    <link href="https://www.telecomprocess.com/main/dist/css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/lib/codemirror.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/sparksuite-codemirror-spell-checker-76b6450/dist/spell-checker.min.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/3024-day.css">
+
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/3024-night.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/abcdef.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/ambiance.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/ayu-dark.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/ayu-mirage.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/base16-dark.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/bespin.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/base16-light.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/blackboard.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/cobalt.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/colorforth.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/dracula.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/duotone-dark.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/duotone-light.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/eclipse.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/elegant.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/erlang-dark.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/gruvbox-dark.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/hopscotch.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/icecoder.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/isotope.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/lesser-dark.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/liquibyte.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/lucario.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/material.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/material-darker.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/material-palenight.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/material-ocean.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/mbo.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/mdn-like.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/midnight.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/monokai.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/moxer.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/neat.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/neo.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/night.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/nord.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/oceanic-next.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/panda-syntax.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/paraiso-dark.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/paraiso-light.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/pastel-on-dark.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/railscasts.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/rubyblue.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/seti.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/shadowfox.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/solarized.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/the-matrix.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/tomorrow-night-bright.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/tomorrow-night-eighties.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/ttcn.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/twilight.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/vibrant-ink.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/xq-dark.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/xq-light.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/yeti.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/idea.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/darcula.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/yonce.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/theme/zenburn.css">
+
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/display/fullscreen.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/dialog/dialog.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/search/matchesonscrollbar.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/lint/lint.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/merge/merge.css">
+    <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/hint/show-hint.css">
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
+                        <i class="ti-menu ti-close"></i>
+                    </a>
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-brand">
+                        <a href="index.html" class="logo">
+                            <!-- Logo icon -->
+                            <b class="logo-icon">
+                                <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                                <!-- Dark Logo icon -->
+                                <img src="https://www.telecomprocess.com/main/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                                <!-- Light Logo icon -->
+                                <img src="https://www.telecomprocess.com/main/assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                            </b>
+                            <!--End Logo icon -->
+                            <!-- Logo text -->
+                            <span class="logo-text">
+                                <!-- dark Logo text -->
+                                <img src="https://www.telecomprocess.com/main/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                                <!-- Light Logo text -->
+                                <img src="https://www.telecomprocess.com/main/assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
+                            </span>
+                        </a>
+                        <a class="sidebartoggler d-none d-md-block" href="javascript:void(0)"
+                            data-sidebartype="mini-sidebar">
+                            <i class="mdi mdi-toggle-switch mdi-toggle-switch-off font-20"></i>
+                        </a>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Toggle which is visible on mobile only -->
+                    <!-- ============================================================== -->
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+                        data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="ti-more"></i>
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-left mr-auto">
+                        <!-- <li class="nav-item d-none d-md-block">
+                            <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar">
+                                <i class="mdi mdi-menu font-24"></i>
+                            </a>
+                        </li> -->
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item search-box">
+                            <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
+                                <div class="d-flex align-items-center">
+                                    <i class="mdi mdi-magnify font-20 mr-1"></i>
+                                    <div class="ml-1 d-none d-sm-block">
+                                        <span>Search</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <form class="app-search position-absolute">
+                                <input type="text" class="form-control" placeholder="Search &amp; enter">
+                                <a class="srh-btn">
+                                    <i class="ti-close"></i>
+                                </a>
+                            </form>
+                        </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-right">
+                        <!-- ============================================================== -->
+                        <!-- Messages -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="font-22 mdi mdi-email-outline"></i>
+
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown"
+                                aria-labelledby="2">
+                                <span class="with-arrow">
+                                    <span class="bg-danger"></span>
+                                </span>
+                                <ul class="list-style-none">
+                                    <li>
+                                        <div class="drop-title text-white bg-danger">
+                                            <h4 class="m-b-0 m-t-5">5 New</h4>
+                                            <span class="font-light">Messages</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="message-center message-body">
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="user-img">
+                                                    <img src="https://www.telecomprocess.com/main/assets/images/users/1.jpg" alt="user"
+                                                        class="rounded-circle">
+                                                    <span class="profile-status online pull-right"></span>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Pavan kumar</h5>
+                                                    <span class="mail-desc">Just see the my admin!</span>
+                                                    <span class="time">9:30 AM</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="user-img">
+                                                    <img src="https://www.telecomprocess.com/main/assets/images/users/2.jpg" alt="user"
+                                                        class="rounded-circle">
+                                                    <span class="profile-status busy pull-right"></span>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Sonu Nigam</h5>
+                                                    <span class="mail-desc">I've sung a song! See you at</span>
+                                                    <span class="time">9:10 AM</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="user-img">
+                                                    <img src="https://www.telecomprocess.com/main/assets/images/users/3.jpg" alt="user"
+                                                        class="rounded-circle">
+                                                    <span class="profile-status away pull-right"></span>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Arijit Sinh</h5>
+                                                    <span class="mail-desc">I am a singer!</span>
+                                                    <span class="time">9:08 AM</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="user-img">
+                                                    <img src="https://www.telecomprocess.com/main/assets/images/users/4.jpg" alt="user"
+                                                        class="rounded-circle">
+                                                    <span class="profile-status offline pull-right"></span>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Pavan kumar</h5>
+                                                    <span class="mail-desc">Just see the my admin!</span>
+                                                    <span class="time">9:02 AM</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-center link text-dark" href="javascript:void(0);">
+                                            <b>See all e-Mails</b>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- End Messages -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Comment -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown border-right">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="mdi mdi-bell-outline font-22"></i>
+                                <span class="badge badge-pill badge-info noti">3</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
+                                <span class="with-arrow">
+                                    <span class="bg-primary"></span>
+                                </span>
+                                <ul class="list-style-none">
+                                    <li>
+                                        <div class="drop-title bg-primary text-white">
+                                            <h4 class="m-b-0 m-t-5">4 New</h4>
+                                            <span class="font-light">Notifications</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="message-center notifications">
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="btn btn-danger btn-circle">
+                                                    <i class="fa fa-link"></i>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Luanch Admin</h5>
+                                                    <span class="mail-desc">Just see the my new admin!</span>
+                                                    <span class="time">9:30 AM</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="btn btn-success btn-circle">
+                                                    <i class="ti-calendar"></i>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Event today</h5>
+                                                    <span class="mail-desc">Just a reminder that you have event</span>
+                                                    <span class="time">9:10 AM</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="btn btn-info btn-circle">
+                                                    <i class="ti-settings"></i>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Settings</h5>
+                                                    <span class="mail-desc">You can customize this template as you
+                                                        want</span>
+                                                    <span class="time">9:08 AM</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="btn btn-primary btn-circle">
+                                                    <i class="ti-user"></i>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Pavan kumar</h5>
+                                                    <span class="mail-desc">Just see the my admin!</span>
+                                                    <span class="time">9:02 AM</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-center m-b-5 text-dark" href="javascript:void(0);">
+                                            <strong>Check all notifications</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- End Comment -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark pro-pic" href=""
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="https://www.telecomprocess.com/main/assets/images/users/2.jpg" alt="user" class="rounded-circle" width="40">
+                                <span class="m-l-5 font-medium d-none d-sm-inline-block">Jonathan Doe <i
+                                        class="mdi mdi-chevron-down"></i></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                                <span class="with-arrow">
+                                    <span class="bg-primary"></span>
+                                </span>
+                                <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
+                                    <div class="">
+                                        <img src="https://www.telecomprocess.com/main/assets/images/users/2.jpg" alt="user" class="rounded-circle"
+                                            width="60">
+                                    </div>
+                                    <div class="m-l-10">
+                                        <h4 class="m-b-0">Jonathan Doe</h4>
+                                        <p class=" m-b-0">jon@gmail.com</p>
+                                    </div>
+                                </div>
+                                <div class="profile-dis scrollable">
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+                                    <div class="dropdown-divider"></div>
+                                </div>
+                                <div class="p-l-30 p-10">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View
+                                        Profile</a>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="nav-small-cap">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                            <span class="hide-menu">Personal</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class="mdi mdi-av-timer"></i>
+                                <span class="hide-menu">Dashboard </span>
+                                <span class="badge badge-pill badge-info ml-auto m-r-15">3</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item">
+                                    <a href="index.html" class="sidebar-link">
+                                        <i class="mdi mdi-adjust"></i>
+                                        <span class="hide-menu"> Classic </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="index2.html" class="sidebar-link">
+                                        <i class="mdi mdi-adjust"></i>
+                                        <span class="hide-menu"> Analytical </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="index3.html" class="sidebar-link">
+                                        <i class="mdi mdi-adjust"></i>
+                                        <span class="hide-menu"> Modern </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class="mdi mdi-tune"></i>
+                                <span class="hide-menu">Sidebar Type </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item">
+                                    <a href="sidebar-type-minisidebar.html" class="sidebar-link">
+                                        <i class="mdi mdi-view-quilt"></i>
+                                        <span class="hide-menu"> Minisidebar </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="sidebar-type-iconsidebar.html" class="sidebar-link">
+                                        <i class="mdi mdi-view-parallel"></i>
+                                        <span class="hide-menu"> Icon Sidebar </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="sidebar-type-overlaysidebar.html" class="sidebar-link">
+                                        <i class="mdi mdi-view-day"></i>
+                                        <span class="hide-menu"> Overlay Sidebar </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="sidebar-type-fullsidebar.html" class="sidebar-link">
+                                        <i class="mdi mdi-view-array"></i>
+                                        <span class="hide-menu"> Full Sidebar </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="sidebar-type-horizontalsidebar.html" class="sidebar-link">
+                                        <i class="mdi mdi-view-module"></i>
+                                        <span class="hide-menu"> Horizontal Sidebar </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class="mdi mdi-crop-square"></i>
+                                <span class="hide-menu">Page Layouts </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item">
+                                    <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                        <i class="mdi mdi-format-align-left"></i>
+                                        <span class="hide-menu"> Inner Fixed Left Sidebar </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="layout-inner-fixed-right-sidebar.html" class="sidebar-link">
+                                        <i class="mdi mdi-format-align-right"></i>
+                                        <span class="hide-menu"> Inner Fixed Right Sidebar </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="layout-inner-left-sidebar.html" class="sidebar-link">
+                                        <i class="mdi mdi-format-float-left"></i>
+                                        <span class="hide-menu"> Inner Left Sidebar </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="layout-inner-right-sidebar.html" class="sidebar-link">
+                                        <i class="mdi mdi-format-float-right"></i>
+                                        <span class="hide-menu"> Inner Right Sidebar </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="page-layout-fixed-header.html" class="sidebar-link">
+                                        <i class="mdi mdi-view-quilt"></i>
+                                        <span class="hide-menu"> Fixed Header </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="page-layout-fixed-sidebar.html" class="sidebar-link">
+                                        <i class="mdi mdi-view-parallel"></i>
+                                        <span class="hide-menu"> Fixed Sidebar </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="page-layout-fixed-header-sidebar.html" class="sidebar-link">
+                                        <i class="mdi mdi-view-column"></i>
+                                        <span class="hide-menu"> Fixed Header &amp; Sidebar </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="page-layout-boxed-layout.html" class="sidebar-link">
+                                        <i class="mdi mdi-view-carousel"></i>
+                                        <span class="hide-menu"> Box Layout </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-small-cap">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                            <span class="hide-menu">Apps</span>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="app-chats.html" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span class="hide-menu">Chat Apps</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="app-todo.html" aria-expanded="false"><i class="mdi mdi-clipboard-text"></i><span class="hide-menu">Todo</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="app-calendar.html" aria-expanded="false"><i class="mdi mdi-calendar"></i><span class="hide-menu">Calendar</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="app-taskboard.html" aria-expanded="false"><i class="mdi mdi-bulletin-board"></i><span class="hide-menu">Taskboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="app-contacts.html" aria-expanded="false"><i class="mdi mdi-account-box"></i><span class="hide-menu">Contact</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="app-notes.html" aria-expanded="false"><i class="mdi mdi-arrange-bring-forward"></i><span class="hide-menu">Notes</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="app-invoice.html" aria-expanded="false"><i class="mdi mdi-book"></i><span class="hide-menu">Invoice</span></a></li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class="mdi mdi-inbox"></i>
+                                <span class="hide-menu">Inbox </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item">
+                                    <a href="inbox-email.html" class="sidebar-link">
+                                        <i class="mdi mdi-email"></i>
+                                        <span class="hide-menu"> Email </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="inbox-email-detail.html" class="sidebar-link">
+                                        <i class="mdi mdi-email-alert"></i>
+                                        <span class="hide-menu"> Email Detail </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="inbox-email-compose.html" class="sidebar-link">
+                                        <i class="mdi mdi-email-secure"></i>
+                                        <span class="hide-menu"> Email Compose </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class="ti-bookmark"></i>
+                                <span class="hide-menu">Ticket </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item">
+                                    <a href="ticket-list.html" class="sidebar-link">
+                                        <i class="mdi mdi-book-multiple"></i>
+                                        <span class="hide-menu"> Ticket List </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="ticket-detail.html" class="sidebar-link">
+                                        <i class="mdi mdi-book-plus"></i>
+                                        <span class="hide-menu"> Ticket Detail </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="https://www.telecomprocess.com/main/docs/documentation.html" aria-expanded="false">
+                                <i class="mdi mdi-content-paste"></i>
+                                <span class="hide-menu">Documentation</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="authentication-login1.html" aria-expanded="false">
+                                <i class="mdi mdi-directions"></i>
+                                <span class="hide-menu">Log Out</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-5 align-self-center">
+                        <h4 class="page-title">Form Tinymce</h4>
+                    </div>
+                    <div class="col-7 align-self-center">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="#">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">Form Tinymce</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Editor Commands</h4>
+                                <h6 class="card-subtitle">Also CodeMirror Toolbar</h6>
+                                <div id="editor-toolbar">
+                                    <p>
+                                      <input id="cm" type="checkbox" name="" value="">
+                                      <input id="tm" type="checkbox" name="" value="">
+                                    </p>
+                                    <p>
+                                      <label for="mode">Select Mode</label>
+                                      <select id="mode">
+                                          <option value="htmlmixed">htmlmixed</option>
+                                          <option value="javascript">javascript</option>
+                                          <option value="css">css</option>
+                                          <option value="python">python</option>
+                                          <option value="php">php</option>
+                                          <option value="perl">perl</option>
+                                          <option value="django">django</option>
+                                          <option value="xml">xml</option>
+                                      </select>
+                                    </p>
+
+                                    <p>
+                                      <label for="select-theme">Select Theme</label>
+                                      <select id="select-theme">
+                                          <option value="oceanic-next">oceanic-next</option>
+                                          <option value="night">night</option>
+                                          <option value="3024-day">3024-day</option>
+                                          <option value="3024-night">3024-night</option>
+                                          <option value="abcdef">abcdef</option>
+                                          <option value="ambiance">ambiance</option>
+                                          <option value="ayu-dark">ayu-dark</option>
+                                          <option value="bespin">bespin</option>
+                                          <option value="cobalt">cobalt</option>
+                                          <option value="dracula">dracula</option>
+                                          <option value="duotone-dark">duotone-dark</option>
+                                          <option value="duotone-light">duotone-light</option>
+                                          <option value="eclipse">eclipse</option>
+                                          <option value="elegant">elegant</option>
+                                          <option value="erlang-dark">erlang-dark</option>
+                                          <option value="gruvbox-dark">gruvbox-dark</option>
+                                          <option value="hopscotch">hopscotch</option>a>
+                                          <option value="icecoder">icecoder</option>
+                                          <option value="isotope">isotope</option>
+                                          <option value="lesser-dark">lesser-dark</option>
+                                          <option value="liquibyte">liquibyte</option>a>
+                                          <option value="lucario">lucario</option>
+                                          <option value="material">material</option>
+                                          <option value="material-darker">material-darker</option>
+                                          <option value="material-palenight">material-palenight</option>
+                                          <option value="material-ocean">material-ocean</option>
+                                          <option value="mdn-like">mdn-like</option>
+                                          <option value="midnight">midnight</option>
+                                          <option value="monokai">monokai</option>
+                                          <option value="moxer">moxer</option>
+                                          <option value="neat">neat</option>
+                                          <option value="neo">neo</option>
+                                          <option value="nord">nord</option>
+                                          <option value="panda-syntax">panda-syntax</option>
+                                          <option value="paraiso-dark">paraiso-dark</option>
+                                          <option value="paraiso-light">paraiso-light</option>
+                                          <option value="pastel-on-dark">pastel-on-dark</option>
+                                          <option value="railscasts">railscasts</option>
+                                          <option value="rubyblue">rubyblue</option>
+                                          <option value="seti">seti</option>
+                                          <option value="shadowfox">shadowfox</option>a>
+                                          <option value="solarized">solarized</option>a>
+                                          <option value="the-matrix">the-matrix</option>
+                                          <option value="tomorrow-night-bright">tomorrow-night-bright</option>
+                                          <option value="tomorrow-night-eighties">tomorrow-night-eighties</option>
+                                          <option value="ttcn">ttcn</option>
+                                          <option value="twilight">twilight</option>
+                                          <option value="vibrant-ink">vibrant-ink</option>
+                                          <option value="xq-dark">xq-dark</option>
+                                          <option value="xq-light">xq-light</option>
+                                          <option value="yeti">yeti</option>
+                                          <option value="idea">idea</option>
+                                          <option value="darcula">darcula</option>
+                                          <option value="yonce">yonce</option>
+                                          <option value="zenburn">zenburn</option>
+                                      </select>
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Tinymce wysihtml5</h4>
+                                <h6 class="card-subtitle">Bootstrap html5 editor</h6>
+                                <form id="website-editor" action="" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ s_form.as_p }}
+                                    <br>
+                                    <br>
+                                    {{ formset.as_p }}
+                                    <button type='submit' class="btn waves-effect waves-light btn-info">Update</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer text-center">
+                All Rights Reserved by Nice admin. Designed and Developed by
+                <a href="https://wrappixel.com">WrapPixel</a>.
+            </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- customizer Panel -->
+    <!-- ============================================================== -->
+    <aside class="customizer">
+        <a href="javascript:void(0)" class="service-panel-toggle" style="display: none;"><i class="fa fa-spin fa-cog"></i></a>
+        <div class="customizer-body">
+            <ul class="nav customizer-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+                        aria-controls="pills-home" aria-selected="true"><i class="mdi mdi-wrench font-20"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#chat" role="tab"
+                        aria-controls="chat" aria-selected="false"><i class="mdi mdi-message-reply font-20"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
+                        aria-controls="pills-contact" aria-selected="false"><i
+                            class="mdi mdi-star-circle font-20"></i></a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <!-- Tab 1 -->
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="p-15 border-bottom">
+                        <!-- Sidebar -->
+                        <h5 class="font-medium m-b-10 m-t-10">Layout Settings</h5>
+                        <div class="custom-control custom-checkbox m-t-10">
+                            <input type="checkbox" class="custom-control-input" name="theme-view" id="theme-view">
+                            <label class="custom-control-label" for="theme-view">Dark Theme</label>
+                        </div>
+                        <div class="custom-control custom-checkbox m-t-10">
+                            <input type="checkbox" class="custom-control-input sidebartoggler" name="collapssidebar"
+                                id="collapssidebar">
+                            <label class="custom-control-label" for="collapssidebar">Collapse Sidebar</label>
+                        </div>
+                        <div class="custom-control custom-checkbox m-t-10">
+                            <input type="checkbox" class="custom-control-input" name="sidebar-position"
+                                id="sidebar-position">
+                            <label class="custom-control-label" for="sidebar-position">Fixed Sidebar</label>
+                        </div>
+                        <div class="custom-control custom-checkbox m-t-10">
+                            <input type="checkbox" class="custom-control-input" name="header-position"
+                                id="header-position">
+                            <label class="custom-control-label" for="header-position">Fixed Header</label>
+                        </div>
+                        <div class="custom-control custom-checkbox m-t-10">
+                            <input type="checkbox" class="custom-control-input" name="boxed-layout" id="boxed-layout">
+                            <label class="custom-control-label" for="boxed-layout">Boxed Layout</label>
+                        </div>
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <!-- Logo BG -->
+                        <h5 class="font-medium m-b-10 m-t-10">Logo Backgrounds</h5>
+                        <ul class="theme-color">
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-logobg="skin1"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-logobg="skin2"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-logobg="skin3"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-logobg="skin4"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-logobg="skin5"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-logobg="skin6"></a></li>
+                        </ul>
+                        <!-- Logo BG -->
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <!-- Navbar BG -->
+                        <h5 class="font-medium m-b-10 m-t-10">Navbar Backgrounds</h5>
+                        <ul class="theme-color">
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-navbarbg="skin1"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-navbarbg="skin2"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-navbarbg="skin3"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-navbarbg="skin4"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-navbarbg="skin5"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-navbarbg="skin6"></a></li>
+                        </ul>
+                        <!-- Navbar BG -->
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <!-- Logo BG -->
+                        <h5 class="font-medium m-b-10 m-t-10">Sidebar Backgrounds</h5>
+                        <ul class="theme-color">
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-sidebarbg="skin1"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-sidebarbg="skin2"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-sidebarbg="skin3"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-sidebarbg="skin4"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-sidebarbg="skin5"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-sidebarbg="skin6"></a></li>
+                        </ul>
+                        <!-- Logo BG -->
+                    </div>
+                </div>
+                <!-- End Tab 1 -->
+                <!-- Tab 2 -->
+                <div class="tab-pane fade" id="chat" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <ul class="mailbox list-style-none m-t-20">
+                        <li>
+                            <div class="message-center chat-scroll">
+                                <a href="javascript:void(0)" class="message-item" id='chat_user_1' data-user-id='1'>
+                                    <span class="user-img"> <img src="https://www.telecomprocess.com/main/assets/images/users/1.jpg" alt="user"
+                                            class="rounded-circle"> <span
+                                            class="profile-status online pull-right"></span> </span>
+                                    <div class="mail-contnet">
+                                        <h5 class="message-title">Pavan kumar</h5> <span class="mail-desc">Just see the
+                                            my admin!</span> <span class="time">9:30 AM</span>
+                                    </div>
+                                </a>
+                                <!-- Message -->
+
+                                <!-- Message -->
+                                <a href="javascript:void(0)" class="message-item" id='chat_user_8' data-user-id='8'>
+                                    <span class="user-img"> <img src="https://www.telecomprocess.com/main/assets/images/users/8.jpg" alt="user"
+                                            class="rounded-circle"> <span
+                                            class="profile-status offline pull-right"></span> </span>
+                                    <div class="mail-contnet">
+                                        <h5 class="message-title">Varun Dhavan</h5> <span class="mail-desc">Just see the
+                                            my admin!</span> <span class="time">9:02 AM</span>
+                                    </div>
+                                </a>
+                                <!-- Message -->
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End Tab 2 -->
+                <!-- Tab 3 -->
+                <div class="tab-pane fade p-15" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                    <h6 class="m-t-20 m-b-20">Activity Timeline</h6>
+                    <div class="steamline">
+                        <div class="sl-item">
+                            <div class="sl-left bg-success"> <i class="ti-user"></i></div>
+                            <div class="sl-right">
+                                <div class="font-medium">Meeting today <span class="sl-date"> 5pm</span></div>
+                                <div class="desc">you can write anything </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- End Tab 3 -->
+            </div>
+        </div>
+    </aside>
+    <div class="chat-windows"></div>
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="https://www.telecomprocess.com/main/assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="https://www.telecomprocess.com/main/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- apps -->
+    <script src="https://www.telecomprocess.com/main/dist/js/app.min.js"></script>
+    <script src="https://www.telecomprocess.com/main/dist/js/app.init.custom.js"></script>
+    <script src="https://www.telecomprocess.com/main/dist/js/app-style-switcher.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="https://www.telecomprocess.com/main/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="https://www.telecomprocess.com/main/dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="https://www.telecomprocess.com/main/dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="https://www.telecomprocess.com/main/dist/js/custom.min.js"></script>
+    <!-- This Page JS -->
+    <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/tinymce.min.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/modern/theme.min.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/mobile/theme.min.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/inlite/theme.min.js"></script>
+
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/lib/codemirror.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/sparksuite-codemirror-spell-checker-76b6450/dist/spell-checker.min.js"></script>
+
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/mode/loadmode.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/meta.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/edit/closetag.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/fold/xml-fold.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/hint/show-hint.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/edit/matchtags.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/xml/xml.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/display/fullscreen.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/dialog/dialog.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/search/searchcursor.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/search/search.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/scroll/annotatescrollbar.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/search/matchesonscrollbar.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/search/jump-to-line.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/selection/active-line.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/edit/matchbrackets.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/javascript/javascript.js"></script>
+
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/nginx/nginx.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/perl/perl.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/php/php.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/python/python.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/django/django.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/ruby/ruby.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/shell/shell.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/http/http.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/sass/sass.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/sql/sql.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/swift/swift.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/css/css.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/mode/clike/clike.js"></script>
+    <script src="https://unpkg.com/jshint@2.9.6/dist/jshint.js"></script>
+    <script src="https://unpkg.com/jsonlint@1.6.3/web/jsonlint.js"></script>
+    <script src="https://unpkg.com/csslint@1.0.5/dist/csslint.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/lint/htmlhint.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/lint/lint.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/lint/javascript-lint.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/lint/json-lint.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/lint/css-lint.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/lint/html-lint.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/merge/merge.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/display/panel.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/hint/anyword-hint.js"></script>
+    <script>
+        var currentEditor = null;
+        var currentTextarea = null;
+        var currentTheme = "default";
+        var currentMode = "htmlmixed";
+        var themeSelector = document.querySelector('#theme-select'); // input.options[input.selectedIndex].textContent;
+        var modeSelector = document.querySelector('#mode-select'); // input.options[input.selectedIndex].textContent;
+        var cmToggler = document.querySelector('#cm');
+        var tmToggler = document.querySelector('#tm');
+        var pageContents = document.querySelectorAll('.page-textarea-content');
+        var pageJSs = document.querySelectorAll('.page-textarea-js');
+        var pageStyles = document.querySelectorAll('.page-textarea-content');
+        var pageDescriptions = document.querySelectorAll('.page-textarea-description');
+        var pageMetas = document.querySelectorAll('.page-textarea-metas');
+        var pageH1s = document.querySelectorAll('.page-textarea-hone');
+        var pageH2s = document.querySelectorAll('.page-textarea-htwo');
+
+        function stopEditors(){
+
+        }
+
+        function startCMEditor(tArea){
+
+        }
+
+        function startTMEditor(tArea){
+
+        }
+        /*
+        $(document).ready(function () {
+
+            if ($("#mymce").length > 0) {
+                tinymce.init({
+                    selector: "textarea#mymce",
+                    theme: "modern",
+                    height: 300,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                        "save table contextmenu directionality emoticons template paste textcolor"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+
+                });
+            }
+        });
+        */
+    </script>
+</body>
+
+</html>
