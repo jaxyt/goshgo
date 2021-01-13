@@ -6,11 +6,36 @@ from .forms import SiteModelForm, PageModelForm, ShortcodeModelForm
 from django.forms import modelformset_factory
 from django.views.generic import UpdateView, DeleteView
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
+@login_required
+def site_inline_edit(request, site_id):
+    profile = Profile.objects.get(user=request.user)
+    s = Site.objects.get(pk=site_id)
+    pages = s.get_pages()
+    rt = request.GET.get('route', '/index.html')
+    def contains(list, filter):
+        for x in list:
+            if filter(x):
+                return x
+        return False
+    page = contains(pages, lambda x: f"{x.route}{x.name}{x.extension}" == rt)
+    if type(page) is bool:
+        raise Http404("this page does not exist")
+    context = {
+        'profile': profile,
+        'site': s,
+        'page': page,
+        'title': f"{page.title} - {s.title}",
+        'stylesheet': f"{page.stylesheet}" if page.stylesheet != "" else f"{s.stylesheet}",
+        'header': f"{page.header}" if page.header != "" else f"{s.header}",
+        'footer': f"{page.footer}" if page.footer != "" else f"{s.footer}",
+
+    }
+    return render(request, 'sites/compile.html', context)
 
 @login_required
 def site_page_edit_view(request, site_id):

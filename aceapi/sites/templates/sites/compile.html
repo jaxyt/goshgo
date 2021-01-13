@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!--Site Metas-->
+    {{ site.metas|safe }}
+    <!--Page Metas-->
+    {{ page.metas|safe }}
+    <!--Site Links-->
+    {{ site.links|safe }}
+    <!--Page Links-->
+    {{ page.links|safe }}
+    <!--Stylesheet-->
+    <style>
+      {{ stylesheet|safe }}
+    </style>
+    {% if request.user %}
+      <style>
+        .edit-inline *[contentEditable="true"]:focus,
+        .edit-inline *[contentEditable="true"]:hover {
+          outline: 2px solid #2276d2;
+        }
+
+        div#user-area h1 {
+          color: antiquewhite;
+        }
+        div#user-area {
+          background-color: #4a4949;
+          padding: 15px;
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 2px solid black;
+        }
+        div#editor-toolbar {
+          display: flex;
+          align-items: end;
+        }
+        div#editor-toolbar p {
+          display: flex;
+          padding: 5px;
+        }
+      </style>
+    {% endif %}
+    <!--Title-->
+    <title>{{ title|safe }}</title>
+  </head>
+  <body>
+{% if request.user %}
+<div id="user-area">
+
+  <div id="editor-toolbar">
+  <p>
+
+    <select id="select-site">
+        <option value="none">-- Select Site --</option>
+        <option value="none">None</option>
+        <option value="tm">TinyMCE</option>
+        <option value="cm">CodeMirror</option>
+    </select>
+  </p>
+    <p>
+
+      <select id="select-page">
+          <option value="htmlmixed">-- Select Page --</option>
+          <option value="htmlmixed">htmlmixed</option>
+          <option value="text/plain">plain text</option>
+          <option value="javascript">javascript</option>
+          <option value="css">css</option>
+          <option value="python">python</option>
+          <option value="php">php</option>
+          <option value="perl">perl</option>
+          <option value="django">django</option>
+          <option value="xml">xml</option>
+      </select>
+    </p>
+    </div>
+    <h1>Welcome, {{ profile.user.username }}</h1>
+</div>
+<div class="edit-inline">
+{% endif %}
+    <!--Header-->
+    <header id="header" class="tinymce-body">
+      {{ header|safe }}
+    </header>
+    <!--Content-->
+    <div id="content" class="tinymce-body">
+      {{ page.content|safe }}
+    </div>
+    <!--Footer-->
+    <footer id="footer" class="tinymce-body">
+      {{ footer|safe }}
+    </footer>
+{% if request.user %}
+</div>
+{% endif %}
+    <!--Site Plugins-->
+    {{ site.scripts|safe }}
+    <!--Page Plugins-->
+    {{ page.scripts|safe }}
+    <!--Site Script-->
+    <script type="text/javascript">
+      {{ site.custom_script|safe }}
+    </script>
+    <!--Page Script-->
+    <script type="text/javascript">
+      {{ page.custom_script|safe }}
+    </script>
+    {% if request.user %}
+        <!-- ============================================================== -->
+        <!-- All Jquery -->
+        <!-- ============================================================== -->
+
+        <!-- This Page JS -->
+        <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/tinymce.min.js"></script>
+        <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/modern/theme.min.js"></script>
+        <!--<script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/inlite/theme.min.js"></script>-->
+        <script>
+
+
+
+            /*var emailBodyConfig = {
+                selector: '.tinymce-body',
+                menubar: false,
+                inline: true,
+                plugins: [
+                  'link',
+                  'lists',
+                  'powerpaste',
+                  'autolink',
+                  'tinymcespellchecker'
+                ],
+                toolbar: [
+                  'undo redo | bold italic underline | fontselect fontsizeselect',
+                  'forecolor backcolor | alignleft aligncenter alignright alignfull | numlist bullist outdent indent'
+                ],
+                valid_elements: 'p[style],strong,em,span[style],a[href],ul,ol,li',
+                valid_styles: {
+                  '*': 'font-size,font-family,color,text-decoration,text-align'
+                },
+                powerpaste_word_import: 'clean',
+                powerpaste_html_import: 'clean',
+            };*/
+
+
+            var emailBodyConfig = {
+                selector: '.tinymce-body',
+                menubar: 'file edit view insert format tools table help',
+                browser_spellcheck: true,
+                theme: 'modern',
+                inline: true,
+                plugins: [
+                    "advlist autolink link image lists charmap print hr anchor pagebreak spellchecker",
+                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                    "save table contextmenu directionality emoticons template paste textcolor"
+                ],
+                toolbar: [
+                  'undo redo | styleselect fontselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print media | forecolor backcolor emoticons'
+                ],
+            };
+
+
+              //tinymce.init(emailHeaderConfig);
+              tinymce.init(emailBodyConfig);
+            /*$(document).ready(function () {
+
+
+                if ($("#mymce").length > 0) {
+                    tinymce.init({
+                        selector: "textarea#mymce",
+                        theme: "modern",
+                        height: 300,
+                        plugins: [
+                            "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                            "save table contextmenu directionality emoticons template paste textcolor"
+                        ],
+                        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+
+                    });
+                }
+
+            });*/
+        </script>
+    {% endif %}
+  </body>
+</html>
