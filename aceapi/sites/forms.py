@@ -26,6 +26,21 @@ class SiteModelForm(forms.ModelForm):
             'custom_script': forms.Textarea(attrs={'class':'site-textarea-js', 'cols': 50, 'rows': 10}),
         }
 
+
+class MainSiteModelForm(forms.ModelForm):
+
+    class Meta:
+        model = Site
+        #  fields = '__all__'
+        fields = ('url', 'name', 'title', 'metas',)
+        widgets = {
+            'url': forms.TextInput(),
+            'name': forms.TextInput(),
+            'title': forms.TextInput(),
+            'metas': forms.Textarea(attrs={'class':'site-textarea-metas', 'cols': 50, 'rows': 10}),
+        }
+
+
 class PageModelForm(forms.ModelForm):
 
     class Meta:
@@ -57,15 +72,26 @@ class PageModelForm(forms.ModelForm):
 
         }
 
-class ShortcodeModelForm(forms.ModelForm):
+
+class MainPageModelForm(forms.ModelForm):
+
     class Meta:
-        model = Shortcode
-        fields = '__all__'
+        model = Page
+        fields = ('dynamic', 'route', 'name', 'extension', 'mime_type', 'display_name', 'title', 'content',)
+        widgets = {
+            #'route': forms.Textarea(attrs={'cols': 10, 'rows': 1}),
+            'dynamic': forms.CheckboxInput(),
+            'route': forms.TextInput(),
+            'name': forms.TextInput(),
+            'extension': forms.TextInput(),
+            'mime_type': forms.TextInput(),
+            'display_name': forms.TextInput(),
+            'title': forms.TextInput(),
+            'content': forms.Textarea(attrs={'class':'page-textarea-content', 'cols': 50, 'rows': 5}),
 
+        }
 
-
-
-
+class ShortcodeModelForm(forms.ModelForm):
     class Meta:
         model = Shortcode
         fields = '__all__'

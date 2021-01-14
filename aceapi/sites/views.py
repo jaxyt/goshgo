@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from .models import Site, Page, Shortcode
 from profiles.models import Profile
-from .forms import SiteModelForm, PageModelForm, ShortcodeModelForm
+from .forms import SiteModelForm, PageModelForm, ShortcodeModelForm, MainSiteModelForm, MainPageModelForm
 from django.forms import modelformset_factory
 from django.views.generic import UpdateView, DeleteView
 from django.contrib import messages
@@ -92,7 +92,8 @@ def site_page_edit_view(request, site_id):
     context = {
         's_form': s_form,
         'formset': formset,
-        's_pages': s_pages
+        's_pages': s_pages,
+        'site': site,
     }
 
     return render(request, 'sites/edit.html', context)
@@ -104,8 +105,8 @@ def site_page_create_and_list_view(request):
     profile = Profile.objects.get(user=request.user)
 
     # initials
-    s_form = SiteModelForm()
-    p_form = PageModelForm()
+    s_form = MainSiteModelForm()
+    p_form = MainPageModelForm()
     site_added = False
 
     profile = Profile.objects.get(user=request.user)

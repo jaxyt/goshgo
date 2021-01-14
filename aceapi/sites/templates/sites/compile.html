@@ -56,31 +56,30 @@
 
   <div id="editor-toolbar">
     <p>
-
       <button><a href="{% url 'sites:main-site-view' %}">Home</a></button>
     </p>
+    <p>
+      <button><a href="{% url 'sites:site-edit' site.id %}">Advanced Editor</a></button>
+    </p>
   <p>
-
     <select id="select-site">
         <option value="">-- Select Site --</option>
         {% for obj in sites %}
-            <option value="/sites/inline/{{obj.id}}/?route=/index.html">{{obj.title}}</option>
+            <option value="{% url 'sites:site-inline' obj.id %}?route=/index.html">{{obj.title}}</option>
         {% endfor %}
     </select>
   </p>
     <p>
-
       <select id="select-page">
           <option value="">-- Select Page --</option>
           {% for obj in pages %}
               {% ifequal obj.extension permitted %}
-                <option value="/sites/inline/{{site.id}}/?route={{obj.route}}{{obj.name}}{{obj.extension}}">{{obj.route}}{{obj.name}}{{obj.extension}}</option>
+                <option value="{% url 'sites:site-inline' site.id %}?route={{obj.route}}{{obj.name}}{{obj.extension}}">{{obj.route}}{{obj.name}}{{obj.extension}}</option>
               {% endifequal %}
           {% endfor %}
       </select>
     </p>
     <p>
-
       <button onclick="saveForm();">Save</button>
     </p>
     </div>

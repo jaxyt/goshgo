@@ -106,6 +106,17 @@
       p > textarea {
         width: 100%;
       }
+
+      @media (min-width:768px) {
+        #main-wrapper[data-layout=vertical][data-sidebartype=mini-sidebar] .page-wrapper {
+          margin-left:5px;
+        }
+        #main-wrapper[data-layout="vertical"][data-sidebar-position="fixed"] .left-sidebar {
+            display: none;
+        }
+      }
+
+
     </style>
 </head>
 
@@ -258,8 +269,8 @@
                                       <span class="fas fa-save"></span>
                                             </span>
                                         </button>
-                                        <button id="preview-button" type="button" class="btn btn-primary" data-method="destroy" title="Destroy">
-                                            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="View Page">
+                                        <button id="live-button" type="button" class="btn btn-primary" data-method="destroy" title="Live Editor">
+                                            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Live Editor">
                                       <span class="fa fa-power-off"></span>
                                             </span>
                                         </button>
@@ -522,6 +533,9 @@
                         <div class="card">
                             <div class="card-header">
                               <div id="editor-toolbar">
+                                <p>
+                                  <button onclick="window.location.href = `{% url 'sites:main-site-view' %}`;" class="btn waves-effect waves-light btn-info">Home</button>
+                                </p>
                                 <p>
 
                                   <select id="select-editor">
@@ -940,6 +954,8 @@
     let modeSelect = document.querySelector("#select-mode");
     let themeSelect = document.querySelector("#select-theme");
     let hideSiteFields = document.querySelector('#hide-site-fields');
+    let liveEditButton = document.querySelector("#live-button");
+    let liveEditorRoute = "{% url 'sites:site-inline' site.id %}?route=/index.html";
     CodeMirror.modeURL = "../mode/%N/%N.js";
 
     function buildSiteObj() {
@@ -1245,6 +1261,19 @@
       }
     }
 
+    function goToLive(e) {
+      let pg = pageSelect.options[pageSelect.selectedIndex].value;
+      let exten = document.querySelector(`#id_form-${pg}-extension`).value;
+      let nme = document.querySelector(`#id_form-${pg}-name`).value;
+      let rout = document.querySelector(`#id_form-${pg}-route`).value;
+      if (exten.search(/\.html$/ig) > -1) {
+        liveEditorRoute = `{% url 'sites:site-inline' site.id %}?route=${rout}${nme}${exten}`;
+      } else {
+        liveEditorRoute = "{% url 'sites:site-inline' site.id %}?route=/index.html";
+      }
+      window.location.href = `${liveEditorRoute}`;
+    }
+
     // pageSelector.addEventListener('change', startEditor)
 
 
@@ -1257,6 +1286,7 @@
             modeSelect.addEventListener('change', changeMode);
             themeSelect.addEventListener('change', changeTheme);
             hideSiteFields.addEventListener('change', changeSiteFields);
+            liveEditButton.addEventListener('click', goToLive);
             pageSelect.dispatchEvent(new Event('change'));
     });
 
