@@ -11,7 +11,11 @@
     {{ page.links|safe }}
     <!--Stylesheet-->
     <style>
-      {{ stylesheet|safe }}
+      {% if pagestylesheet %}
+        {{ page.stylesheet|safe }}
+      {% else %}
+        {{ site.stylesheet|safe }}
+      {% endif %}
     </style>
     {% if request.user %}
       <style>
@@ -37,6 +41,9 @@
         div#editor-toolbar p {
           display: flex;
           padding: 5px;
+        }
+        #inline-ajax {
+          display: none;
         }
       </style>
     {% endif %}
@@ -72,24 +79,50 @@
           <option value="xml">xml</option>
       </select>
     </p>
+    <p>
+
+      <button onclick="saveForm();">Save</button>
+    </p>
     </div>
     <h1>Welcome, {{ profile.user.username }}</h1>
 </div>
 <div class="edit-inline">
 {% endif %}
     <!--Header-->
-    <header id="header" class="tinymce-body">
-      {{ header|safe }}
-    </header>
+    {% if pageheader %}
+      <header id="page-header" class="tinymce-body">
+        {{ page.header|safe }}
+      </header>
+    {% else %}
+      <header id="site-header" class="tinymce-body">
+        {{ site.header|safe }}
+      </header>
+    {% endif %}
+
     <!--Content-->
-    <div id="content" class="tinymce-body">
+    <div id="page-content" class="tinymce-body">
       {{ page.content|safe }}
     </div>
     <!--Footer-->
-    <footer id="footer" class="tinymce-body">
-      {{ footer|safe }}
-    </footer>
+    {% if pagefooter %}
+      <footer id="page-footer" class="tinymce-body">
+        {{ page.footer|safe }}
+      </footer>
+    {% else %}
+      <footer id="site-footer" class="tinymce-body">
+        {{ site.footer|safe }}
+      </footer>
+    {% endif %}
+
 {% if request.user %}
+</div>
+<div id="inline-ajax">
+    <form method="POST" class='ajax-form' id='site-page-form_{{site.id}}'>
+        {% csrf_token %}
+        {{ s_form.as_p }}
+        {{ p_form.as_p }}
+        <button type="submit" id="site-page-btn_{{page.id}}">Update</button>
+    </form>
 </div>
 {% endif %}
     <!--Site Plugins-->
@@ -108,7 +141,7 @@
         <!-- ============================================================== -->
         <!-- All Jquery -->
         <!-- ============================================================== -->
-
+        <script src="https://www.telecomprocess.com/main/assets/libs/jquery/dist/jquery.min.js"></script>
         <!-- This Page JS -->
         <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/tinymce.min.js"></script>
         <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/modern/theme.min.js"></script>
@@ -143,6 +176,14 @@
 
             var emailBodyConfig = {
                 selector: '.tinymce-body',
+                init_instance_callback: function(editor) {
+                  editor.on('ExecCommand', function(e) {
+                    document.querySelector(`#id_${tinyMCE.activeEditor.id}`).value = `${tinyMCE.activeEditor.getContent()}`;
+                  });
+                  editor.on('keyup', function(e) {
+                    document.querySelector(`#id_${tinyMCE.activeEditor.id}`).value = `${tinyMCE.activeEditor.getContent()}`;
+                  });
+                },
                 menubar: 'file edit view insert format tools table help',
                 browser_spellcheck: true,
                 theme: 'modern',
@@ -180,6 +221,78 @@
 
             });*/
         </script>
+        <script type="text/javascript">
+
+          function saveForm(){
+            document.querySelector("#site-page-btn_{{page.id}}").click();
+          }
+
+
+          $( document ).ready(function() {
+
+              $('.ajax-form').submit(function(e){
+                  e.preventDefault()
+                  console.log("hello")
+
+                  const site_id = "{{ site.id }}";
+                  const page_id = "{{ page.id }}";
+
+                  const url = `/sites/published/${site_id}/${page_id}/`;
+
+                  $.ajax({
+                      type: 'POST',
+                      url: url,
+                      data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'site-url': $('#id_site-url').val(),
+                        'site-name': $('#id_site-name').val(),
+                        'site-title': $('#id_site-title').val(),
+                        'site-description': $('#id_site-description').val(),
+                        'site-company_name': $('#id_site-company_name').val(),
+                        'site-logo': $('#id_site-logo').val(),
+                        'site-metas': $('#id_site-metas').val(),
+                        'site-links': $('#id_site-links').val(),
+                        'site-stylesheet': $('#id_site-stylesheet').val(),
+                        'site-header': $('#id_site-header').val(),
+                        'site-menu': $('#id_site-menu').val(),
+                        'site-footer': $('#id_site-footer').val(),
+                        'site-scripts': $('#id_site-scripts').val(),
+                        'site-custom_script': $('#id_site-custom_script').val(),
+                        'page-route': $('#id_page-route').val(),
+                        'page-name': $('#id_page-name').val(),
+                        'page-extension': $('#id_page-extension').val(),
+                        'page-mime_type': $('#id_page-mime_type').val(),
+                        'page-display_name': $('#id_page-display_name').val(),
+                        'page-title': $('#id_page-title').val(),
+                        'page-robots_meta': $('#id_page-robots_meta').val(),
+                        'page-meta_description': $('#id_page-meta_description').val(),
+                        'page-metas': $('#id_page-metas').val(),
+                        'page-h_one': $('#id_page-h_one').val(),
+                        'page-h_two': $('#id_page-h_two').val(),
+                        'page-content': $('#id_page-content').val(),
+                        'page-custom_script': $('#id_page-custom_script').val(),
+                        'page-links': $('#id_page-links').val(),
+                        'page-stylesheet': $('#id_page-stylesheet').val(),
+                        'page-scripts': $('#id_page-scripts').val(),
+                        'page-header': $('#id_page-header').val(),
+                        'page-footer': $('#id_page-footer').val()
+                      },
+                      success: function(response) {
+                          if (response['value'] === 'true'){
+                            console.log("success");
+                          } else {
+                            console.log("failure");
+                            console.log(response);
+                          }
+                      },
+                      error: function(response) {
+                          console.log('error', response)
+                      }
+                  })
+
+              })
+          });
+      </script>
     {% endif %}
   </body>
 </html>

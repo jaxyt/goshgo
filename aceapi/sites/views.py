@@ -25,17 +25,41 @@ def site_inline_edit(request, site_id):
     page = contains(pages, lambda x: f"{x.route}{x.name}{x.extension}" == rt)
     if type(page) is bool:
         raise Http404("this page does not exist")
+    s_form = SiteModelForm(request.POST or None, instance=s, prefix='site')
+    p_form = PageModelForm(request.POST or None, instance=page, prefix='page')
+
     context = {
         'profile': profile,
         'site': s,
         'page': page,
         'title': f"{page.title} - {s.title}",
-        'stylesheet': f"{page.stylesheet}" if page.stylesheet != "" else f"{s.stylesheet}",
-        'header': f"{page.header}" if page.header != "" else f"{s.header}",
-        'footer': f"{page.footer}" if page.footer != "" else f"{s.footer}",
+        'pagestylesheet': True if page.stylesheet != "" else False,
+        'pageheader': True if page.header != "" else False,
+        'pagefooter': True if page.footer != "" else False,
+        's_form': s_form,
+        'p_form': p_form
 
     }
     return render(request, 'sites/compile.html', context)
+
+
+@login_required
+def site_page_inline_ajax(request, site_id, page_id):
+    profile = Profile.objects.get(user=request.user)
+    data = {}
+    site = Site.objects.get(pk=site_id)
+    page = Page.objects.get(pk=page_id)
+    s_form = SiteModelForm(request.POST or None, instance=site, prefix='site')
+    p_form = PageModelForm(request.POST or None, instance=page, prefix='page')
+    if request.method == 'POST':
+        if s_form.is_valid() and p_form.is_valid():
+            data['value'] = 'true'
+            s_form.save()
+            p_form.save()
+        else:
+            data['value'] = 'false'
+    return JsonResponse(data, safe=False)
+
 
 @login_required
 def site_page_edit_view(request, site_id):
