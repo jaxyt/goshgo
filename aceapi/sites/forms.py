@@ -45,12 +45,13 @@ class PageModelForm(forms.ModelForm):
 
     class Meta:
         model = Page
-        fields = ('dynamic', 'route', 'name', 'extension', 'mime_type',
+        fields = ('dynamic', 'pathpattern', 'route', 'name', 'extension', 'mime_type',
             'display_name', 'title', 'robots_meta', 'meta_description', 'metas', 'h_one', 'h_two',
             'content', 'custom_script', 'links', 'stylesheet', 'scripts', 'header', 'footer')
         widgets = {
             #'route': forms.Textarea(attrs={'cols': 10, 'rows': 1}),
             'dynamic': forms.CheckboxInput(),
+            'pathpattern': forms.TextInput(),
             'route': forms.TextInput(),
             'name': forms.TextInput(),
             'extension': forms.TextInput(),
@@ -77,10 +78,11 @@ class MainPageModelForm(forms.ModelForm):
 
     class Meta:
         model = Page
-        fields = ('dynamic', 'route', 'name', 'extension', 'mime_type', 'display_name', 'title', 'content',)
+        fields = ('dynamic', 'pathpattern', 'route', 'name', 'extension', 'mime_type', 'display_name', 'title', 'content',)
         widgets = {
             #'route': forms.Textarea(attrs={'cols': 10, 'rows': 1}),
             'dynamic': forms.CheckboxInput(),
+            'pathpattern': forms.TextInput(),
             'route': forms.TextInput(),
             'name': forms.TextInput(),
             'extension': forms.TextInput(),

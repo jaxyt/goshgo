@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!--Site Metas-->
+    {{ site.metas|safe }}
+    <!--Page Metas-->
+    {{ page.metas|safe }}
+    <!--Site Links-->
+    {{ site.links|safe }}
+    <!--Page Links-->
+    {{ page.links|safe }}
+    <!--Stylesheet-->
+    <style>
+      {% if pagestylesheet %}
+        {{ page.stylesheet|safe }}
+      {% else %}
+        {{ site.stylesheet|safe }}
+      {% endif %}
+    </style>
+    <!--Title-->
+    <title>{{ title|safe }}</title>
+  </head>
+  <body>
+    <!--Header-->
+    {% if pageheader %}
+      <header id="page-header">
+        {{ page.header|safe }}
+      </header>
+    {% else %}
+      <header id="site-header">
+        {{ site.header|safe }}
+      </header>
+    {% endif %}
+
+    <!--Content-->
+    <div id="page-content">
+      {{ page.content|safe }}
+    </div>
+
+    <!--Footer-->
+    {% if pagefooter %}
+      <footer id="page-footer">
+        {{ page.footer|safe }}
+      </footer>
+    {% else %}
+      <footer id="site-footer">
+        {{ site.footer|safe }}
+      </footer>
+    {% endif %}
+
+    <!--Site Plugins-->
+    {{ site.scripts|safe }}
+    <!--Page Plugins-->
+    {{ page.scripts|safe }}
+    <!--Site Script-->
+    <script type="text/javascript">
+      {{ site.custom_script|safe }}
+    </script>
+    <!--Page Script-->
+    <script type="text/javascript">
+      {{ page.custom_script|safe }}
+    </script>
+
+  </body>
+</html>

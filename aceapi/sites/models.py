@@ -124,6 +124,8 @@ class Page(models.Model):
         super().__init__(*args, **kwargs)
 
     def save(self, *args, **kwargs):
+        if self.dynamic and self.pathpattern == "":
+            self.pathpattern = f"""^{self.route}(?P<slug>[-\w]+)-(?P<pk>\d+)/$"""
         super().save(*args, **kwargs)
 
     class Meta:
