@@ -55,28 +55,28 @@
 <div id="user-area">
 
   <div id="editor-toolbar">
+    <p>
+
+      <button><a href="{% url 'sites:main-site-view' %}">Home</a></button>
+    </p>
   <p>
 
     <select id="select-site">
-        <option value="none">-- Select Site --</option>
-        <option value="none">None</option>
-        <option value="tm">TinyMCE</option>
-        <option value="cm">CodeMirror</option>
+        <option value="">-- Select Site --</option>
+        {% for obj in sites %}
+            <option value="/sites/inline/{{obj.id}}/?route=/index.html">{{obj.title}}</option>
+        {% endfor %}
     </select>
   </p>
     <p>
 
       <select id="select-page">
-          <option value="htmlmixed">-- Select Page --</option>
-          <option value="htmlmixed">htmlmixed</option>
-          <option value="text/plain">plain text</option>
-          <option value="javascript">javascript</option>
-          <option value="css">css</option>
-          <option value="python">python</option>
-          <option value="php">php</option>
-          <option value="perl">perl</option>
-          <option value="django">django</option>
-          <option value="xml">xml</option>
+          <option value="">-- Select Page --</option>
+          {% for obj in pages %}
+              {% ifequal obj.extension permitted %}
+                <option value="/sites/inline/{{site.id}}/?route={{obj.route}}{{obj.name}}{{obj.extension}}">{{obj.route}}{{obj.name}}{{obj.extension}}</option>
+              {% endifequal %}
+          {% endfor %}
       </select>
     </p>
     <p>
@@ -220,6 +220,18 @@
                 }
 
             });*/
+        </script>
+        <script type="text/javascript">
+          document.querySelector("#select-site").addEventListener("change", (e)=>{
+            if (e.target.value !== "") {
+              window.location.href = e.target.value;
+            }
+          })
+          document.querySelector("#select-page").addEventListener("change", (e)=>{
+            if (e.target.value !== "") {
+              window.location.href = e.target.value;
+            }
+          })
         </script>
         <script type="text/javascript">
 

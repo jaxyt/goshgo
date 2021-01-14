@@ -27,6 +27,7 @@ def site_inline_edit(request, site_id):
         raise Http404("this page does not exist")
     s_form = SiteModelForm(request.POST or None, instance=s, prefix='site')
     p_form = PageModelForm(request.POST or None, instance=page, prefix='page')
+    sites = Site.objects.all();
 
     context = {
         'profile': profile,
@@ -37,7 +38,10 @@ def site_inline_edit(request, site_id):
         'pageheader': True if page.header != "" else False,
         'pagefooter': True if page.footer != "" else False,
         's_form': s_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'sites': sites,
+        'pages': pages,
+        'permitted': '.html'
 
     }
     return render(request, 'sites/compile.html', context)
