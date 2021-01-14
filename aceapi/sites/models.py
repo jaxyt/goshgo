@@ -63,6 +63,10 @@ class Site(models.Model):
     def get_shortcodes(self):
         return self.shortcodes.all()
 
+    def attrs(self):
+        for field in self._meta.fields:
+            yield field.name, getattr(self, field.name), type(getattr(self, field.name))
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -119,6 +123,10 @@ class Page(models.Model):
 
     def get_shortcodes(self):
         return self.shortcodes.all()
+
+    def attrs(self):
+        for field in self._meta.fields:
+            yield field.name, getattr(self, field.name), type(getattr(self, field.name))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

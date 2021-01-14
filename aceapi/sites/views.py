@@ -6,15 +6,62 @@ from .forms import SiteModelForm, PageModelForm, ShortcodeModelForm, MainSiteMod
 from django.forms import modelformset_factory
 from django.views.generic import UpdateView, DeleteView
 from django.contrib import messages
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse, Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import re_path
 import re
 # Create your views here.
 
+def api_compiler(request, *args, **kwargs):
+    site_id = kwargs['site_id']
+    profile = None
+    if request.user:
+        profile = Profile.objects.get(user=request.user)
+    s = Site.objects.get(pk=site_id)
+    pages = s.get_pages()
+    rt = request.GET.get('route', '/index.html')
+    vars = None
+    def contains(list, filter):
+        for x in list:
+            if filter(x):
+                return x
+            elif x.dynamic:
+                regx = re.compile(x.pathpattern)
+                matched_route = re.match(regx, rt)
+                if matched_route:
+                    vars = matched_route.groupdict()
+                    return x
+        return False
+    page = contains(pages, lambda x: f"{x.route}{x.name}{x.extension}" == rt)
+    if type(page) is bool:
+        raise Http404("this page does not exist")
+    sites = Site.objects.all();
+
+    #for i in s.attrs():
+    #    print(i)
+    #for i in page.attrs():
+    #    print(i)
+
+    context = {
+        'profile': profile,
+        'site': s,
+        'page': page,
+        'title': f"{page.title} - {s.title}",
+        'pagestylesheet': True if page.stylesheet != "" else False,
+        'pageheader': True if page.header != "" else False,
+        'pagefooter': True if page.footer != "" else False,
+        'sites': sites,
+        'pages': pages,
+
+    }
+    res = render(request, 'sites/response.html', context)
+    print(res)
+    return res
+
 @login_required
-def site_inline_edit(request, site_id):
+def site_inline_edit(request, *args, **kwargs):
+    site_id = kwargs['site_id']
     profile = Profile.objects.get(user=request.user)
     s = Site.objects.get(pk=site_id)
     pages = s.get_pages()
@@ -37,6 +84,11 @@ def site_inline_edit(request, site_id):
     s_form = SiteModelForm(request.POST or None, instance=s, prefix='site')
     p_form = PageModelForm(request.POST or None, instance=page, prefix='page')
     sites = Site.objects.all();
+
+    for i in s.attrs():
+        print(i)
+    for i in page.attrs():
+        print(i)
 
     context = {
         'profile': profile,
