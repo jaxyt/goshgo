@@ -87,6 +87,7 @@ class Page(models.Model):
     robots_meta = models.TextField(blank=True, default="")
     meta_description = models.TextField(blank=True, default="")
     dynamic = models.BooleanField(default=False)
+    pathpattern = models.TextField(blank=True, default="")
     route = models.TextField(blank=True, default="/")
     name = models.TextField()
     extension = models.TextField(blank=True, default=".html")
@@ -126,7 +127,7 @@ class Page(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        ordering = ('-name',)
+        ordering = ('-created',)
 
 
 class Shortcode(models.Model):

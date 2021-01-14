@@ -122,6 +122,7 @@ def site_page_create_and_list_view(request):
             site_added = True
 
     if 'submit_p_form' in request.POST:
+        print(request.POST)
         p_form = PageModelForm(request.POST)
         if p_form.is_valid():
             instance = p_form.save(commit=False)

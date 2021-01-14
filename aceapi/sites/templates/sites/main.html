@@ -61,14 +61,17 @@
 
                     {% endfor %}
                 {% endif %}
+                  <div class="ui segment mb-5">
+                    <form action="" method="POST"class='ui fluid form'>
+                        {% csrf_token %}
+                        <input type="hidden" name="site_id" value={{obj.id}}>
+                        {{ p_form }}
+                        <button type="submit" name="submit_p_form" class="ui primary button mt-5 w-full">Send</button>
+                    </form>
+                  </div>
                 </div>
 
-                <form action="" method="POST"class='ui fluid form'>
-                    {% csrf_token %}
-                    <input type="hidden" name="site_id" value={{obj.id}}>
-                    {{ p_form }}
-                    <button type="submit" name="submit_p_form" class="ui primary button mt-5 w-full">Send</button>
-                </form>
+
             </div>
         </div>
 
