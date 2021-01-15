@@ -23,27 +23,44 @@
         .edit-inline *[contentEditable="true"]:hover {
           outline: 2px solid #2276d2;
         }
-
-        div#user-area h1 {
-          color: antiquewhite;
-        }
         div#user-area {
-          background-color: #4a4949;
-          padding: 15px;
+          padding: 10px 16px;
+          background: #555;
+          color: #f1f1f1;
           display: flex;
           justify-content: space-between;
           border-bottom: 2px solid black;
+          font-family: Arial, Helvetica, sans-serif;
+          flex-wrap: wrap-reverse;
         }
         div#editor-toolbar {
           display: flex;
           align-items: end;
+          flex-wrap: wrap;
         }
-        div#editor-toolbar p {
-          display: flex;
-          padding: 5px;
-        }
+
         #inline-ajax {
           display: none;
+        }
+
+        #myBtn {
+          display: none;
+          position: fixed;
+          bottom: 20px;
+          right: 30px;
+          z-index: 99;
+          font-size: 18px;
+          border: none;
+          outline: none;
+          background-color: red;
+          color: white;
+          cursor: pointer;
+          padding: 15px;
+          border-radius: 4px;
+        }
+
+        #myBtn:hover {
+          background-color: #555;
         }
       </style>
     {% endif %}
@@ -52,6 +69,7 @@
   </head>
   <body>
 {% if request.user %}
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 <div id="user-area">
 
   <div id="editor-toolbar">
@@ -82,8 +100,13 @@
     <p>
       <button onclick="saveForm();">Save</button>
     </p>
+    {% if page.dynamic is False %}
+    <p>
+      <button onclick="window.location.href = `{% url 'sites:api_compiler' site.id %}?route={{page.route}}{{page.name}}{{page.extension}}`;">View Live</button>
+    </p>
+    {% endif %}
     </div>
-    <h1>Welcome, {{ profile.user.username }}</h1>
+    <h5>Welcome, {{ profile.user.username }}</h5>
 </div>
 <div class="edit-inline">
 {% endif %}
@@ -172,7 +195,50 @@
                 powerpaste_html_import: 'clean',
             };*/
 
+            var tmConfigTwo = {
+              selector: '.tinymce-body',
+              init_instance_callback: function(editor) {
+                editor.on('ExecCommand', function(e) {
+                  document.querySelector(`#id_${tinyMCE.activeEditor.id}`).value = `${tinyMCE.activeEditor.getContent()}`;
+                });
+                editor.on('keyup', function(e) {
+                  document.querySelector(`#id_${tinyMCE.activeEditor.id}`).value = `${tinyMCE.activeEditor.getContent()}`;
+                });
+              },
+              browser_spellcheck: true,
+              inline: true,
+              plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+              menubar: 'file edit view insert format tools table help',
+              toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap | template link anchor codesample',
+              toolbar_sticky: true,
+              image_advtab: true,
+              link_list: [
+                { title: 'My page 1', value: 'https://www.tiny.cloud' },
+                { title: 'My page 2', value: 'http://www.moxiecode.com' }
+              ],
+              image_list: [
+                { title: 'My page 1', value: 'https://www.tiny.cloud' },
+                { title: 'My page 2', value: 'http://www.moxiecode.com' }
+              ],
+              image_class_list: [
+                { title: 'None', value: '' },
+                { title: 'Some class', value: 'class-name' }
+              ],
+              templates: [
+                    { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+                { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+                { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+              ],
+              template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+              template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+              image_caption: true,
+              quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+              noneditable_noneditable_class: 'mceNonEditable',
+              toolbar_mode: 'sliding',
+              contextmenu: 'link image imagetools table',
+            }
 
+            /*
             var emailBodyConfig = {
                 selector: '.tinymce-body',
                 init_instance_callback: function(editor) {
@@ -196,10 +262,12 @@
                   'undo redo | styleselect fontselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print media | forecolor backcolor emoticons'
                 ],
             };
+            */
 
 
               //tinymce.init(emailHeaderConfig);
-              tinymce.init(emailBodyConfig);
+              //tinymce.init(emailBodyConfig);
+              tinymce.init(tmConfigTwo);
             /*$(document).ready(function () {
 
 
@@ -304,6 +372,27 @@
 
               })
           });
+      </script>
+      <script>
+      //Get the button
+      var mybutton = document.getElementById("myBtn");
+
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function() {scrollFunction()};
+
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          mybutton.style.display = "block";
+        } else {
+          mybutton.style.display = "none";
+        }
+      }
+
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
       </script>
     {% endif %}
   </body>

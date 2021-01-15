@@ -10,6 +10,7 @@ from django.http import JsonResponse, Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import re_path
+from datetime import datetime
 import re
 # Create your views here.
 
@@ -38,11 +39,6 @@ def api_compiler(request, *args, **kwargs):
         raise Http404("this page does not exist")
     sites = Site.objects.all();
 
-    #for i in s.attrs():
-    #    print(i)
-    #for i in page.attrs():
-    #    print(i)
-
     context = {
         'profile': profile,
         'site': s,
@@ -56,7 +52,16 @@ def api_compiler(request, *args, **kwargs):
 
     }
     res = render(request, 'sites/response.html', context)
-    print(res)
+    for i in s.attrs():
+        if isinstance(i[1], (str, int, float, datetime)):
+            regx = re.compile(f"XXsite__{i[0]}XX", re.MULTILINE)
+            subbed = re.sub(regx, f"{i[1]}", res.content.decode('utf-8'))
+            res.content = subbed.encode('utf-8')
+    for i in page.attrs():
+        if isinstance(i[1], (str, int, float, datetime)):
+            regx = re.compile(f"XXpage__{i[0]}XX", re.MULTILINE)
+            subbed = re.sub(regx, f"{i[1]}", res.content.decode('utf-8'))
+            res.content = subbed.encode('utf-8')
     return res
 
 @login_required

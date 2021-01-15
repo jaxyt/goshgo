@@ -21,6 +21,9 @@
     <title>{{ title|safe }}</title>
   </head>
   <body>
+    {% if profile %}
+     <p style="position: fixed; top: 10px; right: 10px;"><button onclick="window.location.href = `{% url 'sites:site-inline' site.id %}?route={{page.route}}{{page.name}}{{page.extension}}`">Live Edit</button></p>
+    {% endif %}
     <!--Header-->
     {% if pageheader %}
       <header id="page-header">

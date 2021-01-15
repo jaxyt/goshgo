@@ -42,3 +42,7 @@ body {
 .comment-box {
     display: none;
 }
+
+.hide-card {
+  display: none;
+}
