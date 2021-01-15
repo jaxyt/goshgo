@@ -5,11 +5,11 @@ app_name = 'sites'
 
 urlpatterns = [
     path('', site_page_create_and_list_view, name='main-site-view'),
+    path('api/<site_id>/', api_compiler, name='api_compiler'),
     path('page/<pk>/delete/', PageDeleteView.as_view(), name='page-delete'),
     path('page/<pk>/update/', PageUpdateView.as_view(), name='page-update'),
     path('<pk>/delete/', SiteDeleteView.as_view(), name='site-delete'),
     path('<pk>/update/', SiteUpdateView.as_view(), name='site-update'),
-    path('api/<site_id>/', api_compiler, name='api_compiler'),
     path('edit/<site_id>/', site_page_edit_view, name='site-edit'),
     path('inline/<site_id>/', site_inline_edit, name='site-inline'),
     path('published/<site_id>/<page_id>/', site_page_inline_ajax, name='site-page-ajax'),

@@ -22,22 +22,20 @@ def api_compiler(request, *args, **kwargs):
     s = Site.objects.get(pk=site_id)
     pages = s.get_pages()
     rt = request.GET.get('route', '/index.html')
+    page = None
     vars = None
-    def contains(list, filter):
-        for x in list:
-            if filter(x):
-                return x
-            elif x.dynamic:
-                regx = re.compile(x.pathpattern)
+    for i in pages:
+        if f"""{i.route}{i.name}{i.extension}""" == rt:
+            page = i
+        elif i.dynamic:
+            if i.pathpattern:
+                regx = re.compile(i.pathpattern)
                 matched_route = re.match(regx, rt)
                 if matched_route:
+                    page = i
                     vars = matched_route.groupdict()
-                    return x
-        return False
-    page = contains(pages, lambda x: f"{x.route}{x.name}{x.extension}" == rt)
-    if type(page) is bool:
+    if page is None:
         raise Http404("this page does not exist")
-    sites = Site.objects.all();
 
     context = {
         'profile': profile,
@@ -47,11 +45,12 @@ def api_compiler(request, *args, **kwargs):
         'pagestylesheet': True if page.stylesheet != "" else False,
         'pageheader': True if page.header != "" else False,
         'pagefooter': True if page.footer != "" else False,
-        'sites': sites,
         'pages': pages,
 
     }
     res = render(request, 'sites/response.html', context)
+    if vars:
+        print(vars)
     for i in s.attrs():
         if isinstance(i[1], (str, int, float, datetime)):
             regx = re.compile(f"XXsite__{i[0]}XX", re.MULTILINE)
@@ -90,10 +89,10 @@ def site_inline_edit(request, *args, **kwargs):
     p_form = PageModelForm(request.POST or None, instance=page, prefix='page')
     sites = Site.objects.all();
 
-    for i in s.attrs():
-        print(i)
-    for i in page.attrs():
-        print(i)
+    #for i in s.attrs():
+    #    print(i)
+    #for i in page.attrs():
+    #    print(i)
 
     context = {
         'profile': profile,
