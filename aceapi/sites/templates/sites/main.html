@@ -128,15 +128,15 @@
               let card = document.querySelector(`#site-card-${i}`);
               console.log(`${element.innerText}`.search(regx) > -1)
               if (`${element.innerText}`.search(regx) > -1) {
-                card.classList.remove('hide-card');
+                card.style = "";
               } else {
-                card.classList.add('hide-card');
+                card.style = "display: none;";
               }
             }
           } else {
             for (i=0; i < siteSearchArr.length; i++) {
               let card = document.querySelector(`#site-card-${i}`);
-              card.classList.remove('hide-card');
+              card.style = "";
             }
           }
 

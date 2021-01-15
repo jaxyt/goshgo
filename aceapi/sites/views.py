@@ -137,8 +137,9 @@ def site_page_edit_view(request, site_id):
     site = Site.objects.get(pk=site_id)
     s_form = SiteModelForm(request.POST or None, instance=site, prefix='site')
     PageFormSet = modelformset_factory(Page, form=PageModelForm)
-
+    data = {}
     if request.method == 'POST':
+        #print(request.POST)
         formset = PageFormSet(request.POST, queryset=site.get_pages())
         if formset.is_valid() and s_form.is_valid():
             s_instance = s_form.save(commit=False)
@@ -151,18 +152,22 @@ def site_page_edit_view(request, site_id):
                     instance.publisher = profile
                 instance.site_id = site.id
                 instance.save()
+            data['value'] = 'true'
+        else:
+            data['value'] = 'false'
+        return JsonResponse(data, safe=False)
+    else:
+        formset = PageFormSet(queryset=site.get_pages())
+        s_pages = site.get_pages()
 
-    formset = PageFormSet(queryset=site.get_pages())
-    s_pages = site.get_pages()
+        context = {
+            's_form': s_form,
+            'formset': formset,
+            's_pages': s_pages,
+            'site': site,
+        }
 
-    context = {
-        's_form': s_form,
-        'formset': formset,
-        's_pages': s_pages,
-        'site': site,
-    }
-
-    return render(request, 'sites/edit.html', context)
+        return render(request, 'sites/edit.html', context)
 
 
 @login_required

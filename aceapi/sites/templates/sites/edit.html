@@ -653,13 +653,13 @@
                             <div class="card-body">
                                 <!--<h4 class="card-title">Tinymce wysihtml5</h4>
                                 <h6 class="card-subtitle">Bootstrap html5 editor</h6>-->
-                                <form id="website-editor" action="" method="POST" enctype="multipart/form-data">
+                                <form id="website-editor" class="ajax-form" action="" method="POST" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     {{ s_form.as_p }}
                                     <br>
                                     <br>
                                     {{ formset.as_p }}
-                                    <button type='submit' class="btn waves-effect waves-light btn-info">Update</button>
+                                    <button id="site-edit-btn" type='submit' class="btn waves-effect waves-light btn-info">Update</button>
                                 </form>
                             </div>
                         </div>
@@ -946,7 +946,7 @@
     let currentCMEditor = null;
     let siteInputs = ['url', 'name', 'title', 'description', 'company_name', 'logo', 'auto_menu'];
     let siteTexts = ['metas', 'links', 'stylesheet', 'header', 'menu', 'footer', 'scripts', 'custom_script'];
-    let pageInputs = ['dynamic', 'route', 'name', 'extension','mime_type', 'display_name', 'title','robots_meta'];
+    let pageInputs = ['dynamic', 'pathpattern', 'route', 'name', 'extension','mime_type', 'display_name', 'title','robots_meta'];
     let pageTexts = [ 'meta_description', 'metas', 'h_one', 'h_two', 'content', 'custom_script', 'links', 'stylesheet', 'scripts', 'header', 'footer'];
     let pageSelect = document.querySelector("#select-page");
     let pageFieldSelect = document.querySelector("#select-page-field");
@@ -1179,12 +1179,41 @@
                     selector: `${fullForm.ps[parseInt(activePage)].content.element}`,
                     theme: "modern",
                     height: 300,
-                    plugins: [
-                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-                        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                        "save table contextmenu directionality emoticons template paste textcolor"
+                    setup: function (editor) {
+                        editor.on('change', function () {
+                            editor.save();
+                        });
+                    },
+                    browser_spellcheck: true,
+                    plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+                    menubar: 'file edit view insert format tools table help',
+                    toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap | template link anchor codesample',
+                    toolbar_sticky: true,
+                    image_advtab: true,
+                    link_list: [
+                      { title: 'My page 1', value: 'https://www.tiny.cloud' },
+                      { title: 'My page 2', value: 'http://www.moxiecode.com' }
                     ],
-                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+                    image_list: [
+                      { title: 'My page 1', value: 'https://www.tiny.cloud' },
+                      { title: 'My page 2', value: 'http://www.moxiecode.com' }
+                    ],
+                    image_class_list: [
+                      { title: 'None', value: '' },
+                      { title: 'Some class', value: 'class-name' }
+                    ],
+                    templates: [
+                          { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+                      { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+                      { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+                    ],
+                    template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+                    template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+                    image_caption: true,
+                    quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+                    noneditable_noneditable_class: 'mceNonEditable',
+                    toolbar_mode: 'sliding',
+                    contextmenu: 'link image imagetools table',
                 });
                 currentTMEditor = `${fullForm.ps[parseInt(activePage)].content.element}`;
 
@@ -1288,6 +1317,78 @@
             hideSiteFields.addEventListener('change', changeSiteFields);
             liveEditButton.addEventListener('click', goToLive);
             pageSelect.dispatchEvent(new Event('change'));
+            document.querySelector("#save-button").addEventListener("click", (e)=>{
+              document.querySelector("#site-edit-btn").click();
+            })
+
+            $('.ajax-form').submit(function(e){
+                e.preventDefault()
+                const url = `{% url 'sites:site-edit' site.id %}`;
+                let reqforms = $("input#id_form-TOTAL_FORMS").val();
+                let dat = {
+                  'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                  'site-url': $("#id_site-url").val(),
+                  'site-name': $("#id_site-name").val(),
+                  'site-title': $("#id_site-title").val(),
+                  'site-description': $("#id_site-description").val(),
+                  'site-company_name': $("#id_site-company_name").val(),
+                  'site-logo': $("#id_site-logo").val(),
+                  'site-metas': $("#id_site-metas").val(),
+                  'site-links': $("#id_site-links").val(),
+                  'site-stylesheet': $("#id_site-stylesheet").val(),
+                  'site-header': $("#id_site-header").val(),
+                  'site-menu': $("#id_site-menu").val(),
+                  'site-footer': $("#id_site-footer").val(),
+                  'site-scripts': $("#id_site-scripts").val(),
+                  'site-custom_script': $("#id_site-custom_script").val(),
+                  'form-TOTAL_FORMS': $("#id_form-TOTAL_FORMS").val(),
+                  'form-INITIAL_FORMS': $("#id_form-INITIAL_FORMS").val(),
+                  'form-MIN_NUM_FORMS': $("#id_form-MIN_NUM_FORMS").val(),
+                  'form-MAX_NUM_FORMS': $("#id_form-MAX_NUM_FORMS").val(),
+
+                }
+
+                for (i=0; i < reqforms; i++) {
+                  dat[`form-${i}-pathpattern`] = $(`#id_form-${i}-pathpattern`).val();
+                  dat[`form-${i}-route`] = $(`#id_form-${i}-route`).val();
+                  dat[`form-${i}-name`] = $(`#id_form-${i}-name`).val();
+                  dat[`form-${i}-extension`] = $(`#id_form-${i}-extension`).val();
+                  dat[`form-${i}-mime_type`] = $(`#id_form-${i}-mime_type`).val();
+                  dat[`form-${i}-display_name`] = $(`#id_form-${i}-display_name`).val();
+                  dat[`form-${i}-title`] = $(`#id_form-${i}-title`).val();
+                  dat[`form-${i}-robots_meta`] = $(`#id_form-${i}-robots_meta`).val();
+                  dat[`form-${i}-meta_description`] = $(`#id_form-${i}-meta_description`).val();
+                  dat[`form-${i}-metas`] = $(`#id_form-${i}-metas`).val();
+                  dat[`form-${i}-h_one`] = $(`#id_form-${i}-h_one`).val();
+                  dat[`form-${i}-h_two`] = $(`#id_form-${i}-h_two`).val();
+                  dat[`form-${i}-content`] = $(`#id_form-${i}-content`).val();
+                  dat[`form-${i}-custom_script`] = $(`#id_form-${i}-custom_script`).val();
+                  dat[`form-${i}-links`] = $(`#id_form-${i}-links`).val();
+                  dat[`form-${i}-stylesheet`] = $(`#id_form-${i}-stylesheet`).val();
+                  dat[`form-${i}-scripts`] = $(`#id_form-${i}-scripts`).val();
+                  dat[`form-${i}-header`] = $(`#id_form-${i}-header`).val();
+                  dat[`form-${i}-footer`] = $(`#id_form-${i}-footer`).val();
+                  dat[`form-${i}-id`] = $(`#id_form-${i}-id`).val();
+
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: dat,
+                    success: function(response) {
+                        if (response['value'] === 'true'){
+                          console.log("success");
+                        } else {
+                          console.log("failure");
+                          console.log(response);
+                        }
+                    },
+                    error: function(response) {
+                        console.log('error', response)
+                    }
+                })
+            });
     });
 
     /*$(document).ready(function () {

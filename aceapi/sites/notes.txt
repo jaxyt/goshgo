@@ -1,1 +1,110 @@
 
+{
+'csrfmiddlewaretoken': ['x4Q7frBjEN1ZeyZTicqkq5ZHFt4uMZgpchBJQTWFupCTN7SaS3BYJ0kqMYGkNIP7'],
+'site-url': ['boc3process.com'],
+'site-name': [''],
+'site-title': ['BOC-3 Process'],
+'site-description': [''],
+'site-company_name': [''],
+'site-logo': [''],
+'site-metas': ['<!-- Required meta tags -->\r\n    <meta charset="utf-8">\r\n    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">'],
+'site-links': [''],
+'site-stylesheet': [''],
+'site-header': [''],
+'site-menu': [''],
+'site-footer': [''],
+'site-scripts': [''],
+'site-custom_script': [''],
+'form-TOTAL_FORMS': ['2'],
+'form-INITIAL_FORMS': ['1'],
+'form-MIN_NUM_FORMS': ['0'],
+'form-MAX_NUM_FORMS': ['1000'],
+'form-0-pathpattern': [''],
+'form-0-route': ['/'],
+'form-0-name': ['index'],
+'form-0-extension': ['.html'],
+'form-0-mime_type': ['text/html'],
+'form-0-display_name': ['Home'],
+'form-0-title': ['Home'],
+'form-0-robots_meta': [''],
+'form-0-meta_description': [''],
+'form-0-metas': [''],
+'form-0-h_one': [''],
+'form-0-h_two': [''],
+'form-0-content': ['<p><em><strong>Hello BOC3</strong></em></p>\r\n<p>&nbsp;</p>\r\n<p><span style="text-decoration: underline;">blah</span></p>'],
+'form-0-custom_script': [''],
+'form-0-links': [''],
+'form-0-stylesheet': [''],
+'form-0-scripts': [''],
+'form-0-header': [''],
+'form-0-footer': [''],
+'form-0-id': ['6'],
+'form-1-pathpattern': [''],
+'form-1-route': ['/'],
+'form-1-name': [''],
+'form-1-extension': ['.html'],
+'form-1-mime_type': ['text/html'],
+'form-1-display_name': [''],
+'form-1-title': [''],
+'form-1-robots_meta': [''],
+'form-1-meta_description': [''],
+'form-1-metas': [''],
+'form-1-h_one': [''],
+'form-1-h_two': [''],
+'form-1-content': [''],
+'form-1-custom_script': [''],
+'form-1-links': [''],
+'form-1-stylesheet': [''],
+'form-1-scripts': [''],
+'form-1-header': [''],
+'form-1-footer': [''],
+'form-1-id': ['']
+}
+
+let reqforms = $("input#id_form-TOTAL_FORMS").val();
+let dat = {
+  'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+  'site-url': $("#id_site-url").val(),
+  'site-name': $("#id_site-name").val(),
+  'site-title': $("#id_site-title").val(),
+  'site-description': $("#id_site-description").val(),
+  'site-company_name': $("#id_site-company_name").val(),
+  'site-logo': $("#id_site-logo").val(),
+  'site-metas': $("#id_site-metas").val(),
+  'site-links': $("#id_site-links").val(),
+  'site-stylesheet': $("#id_site-stylesheet").val(),
+  'site-header': $("#id_site-header").val(),
+  'site-menu': $("#id_site-menu").val(),
+  'site-footer': $("#id_site-footer").val(),
+  'site-scripts': $("#id_site-scripts").val(),
+  'site-custom_script': $("#id_site-custom_script").val(),
+  'form-TOTAL_FORMS': $("#id_form-TOTAL_FORMS").val(),
+  'form-INITIAL_FORMS': $("#id_form-INITIAL_FORMS").val(),
+  'form-MIN_NUM_FORMS': $("#id_form-MIN_NUM_FORMS").val(),
+  'form-MAX_NUM_FORMS': $("#id_form-MAX_NUM_FORMS").val(),
+
+}
+
+for (i=0; i < reqforms; i++) {
+  dat[`form-${i}-pathpattern`] = $(`#id_form-${i}-pathpattern`).val();
+  dat[`form-${i}-route`] = $(`#id_form-${i}-route`).val();
+  dat[`form-${i}-name`] = $(`#id_form-${i}-name`).val();
+  dat[`form-${i}-extension`] = $(`#id_form-${i}-extension`).val();
+  dat[`form-${i}-mime_type`] = $(`#id_form-${i}-mime_type`).val();
+  dat[`form-${i}-display_name`] = $(`#id_form-${i}-display_name`).val();
+  dat[`form-${i}-title`] = $(`#id_form-${i}-title`).val();
+  dat[`form-${i}-robots_meta`] = $(`#id_form-${i}-robots_meta`).val();
+  dat[`form-${i}-meta_description`] = $(`#id_form-${i}-meta_description`).val();
+  dat[`form-${i}-metas`] = $(`#id_form-${i}-metas`).val();
+  dat[`form-${i}-h_one`] = $(`#id_form-${i}-h_one`).val();
+  dat[`form-${i}-h_two`] = $(`#id_form-${i}-h_two`).val();
+  dat[`form-${i}-content`] = $(`#id_form-${i}-content`).val();
+  dat[`form-${i}-custom_script`] = $(`#id_form-${i}-custom_script`).val();
+  dat[`form-${i}-links`] = $(`#id_form-${i}-links`).val();
+  dat[`form-${i}-stylesheet`] = $(`#id_form-${i}-stylesheet`).val();
+  dat[`form-${i}-scripts`] = $(`#id_form-${i}-scripts`).val();
+  dat[`form-${i}-header`] = $(`#id_form-${i}-header`).val();
+  dat[`form-${i}-footer`] = $(`#id_form-${i}-footer`).val();
+  dat[`form-${i}-id`] = $(`#id_form-${i}-id`).val();
+
+}

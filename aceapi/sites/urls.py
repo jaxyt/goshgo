@@ -12,6 +12,6 @@ urlpatterns = [
     path('api/<site_id>/', api_compiler, name='api_compiler'),
     path('edit/<site_id>/', site_page_edit_view, name='site-edit'),
     path('inline/<site_id>/', site_inline_edit, name='site-inline'),
-    path('published/<site_id>/<page_id>/', site_page_inline_ajax, name='site-page-ajax')
+    path('published/<site_id>/<page_id>/', site_page_inline_ajax, name='site-page-ajax'),
 
 ]
