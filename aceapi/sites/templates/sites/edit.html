@@ -93,6 +93,8 @@
     <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/merge/merge.css">
     <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/hint/show-hint.css">
 
+    <link href="https://www.telecomprocess.com/main/assets/extra-libs/toastr/dist/build/toastr.min.css" rel="stylesheet">
+
     <style media="screen">
       .hide {
         display: none;
@@ -932,6 +934,8 @@
     <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/merge/merge.js"></script>
     <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/display/panel.js"></script>
     <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/hint/anyword-hint.js"></script>
+
+    <script src="https://www.telecomprocess.com/main/assets/extra-libs/toastr/dist/build/toastr.min.js"></script>
     <script>
     let pages = [
       {% for obj in s_pages %}
@@ -1228,6 +1232,7 @@
                   autoCloseTags: true,
                   theme: `${activeTheme}`,
                   mode: `${activeMode}`,
+                  onChange: function() { editor.save() },
                   gutters: ["CodeMirror-lint-markers"],
                   lint: true,
                   matchTags: {bothTags: true},
@@ -1253,6 +1258,7 @@
                   lineWrapping: true,
                   matchBrackets: true,
                   autoCloseTags: true,
+                  onChange: function() { editor.save() },
                   theme: `${activeTheme}`,
                   mode: `${activeMode}`,
                   matchTags: {bothTags: true},
@@ -1379,13 +1385,16 @@
                     success: function(response) {
                         if (response['value'] === 'true'){
                           console.log("success");
+                          toastr.success('{{ site.url }} has been updated', 'Success!');
                         } else {
                           console.log("failure");
                           console.log(response);
+                          toastr.error('An error occurred while saving {{ site.url }}...', 'Failure');
                         }
                     },
                     error: function(response) {
                         console.log('error', response)
+                        toastr.error('An error occurred while saving {{ site.url }}...', 'Error!');
                     }
                 })
             });

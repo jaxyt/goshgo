@@ -18,6 +18,7 @@
       {% endif %}
     </style>
     {% if request.user %}
+      <link href="https://www.telecomprocess.com/main/assets/extra-libs/toastr/dist/build/toastr.min.css" rel="stylesheet">
       <style>
         .edit-inline *[contentEditable="true"]:focus,
         .edit-inline *[contentEditable="true"]:hover {
@@ -168,6 +169,7 @@
         <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/tinymce.min.js"></script>
         <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/modern/theme.min.js"></script>
         <!--<script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/inlite/theme.min.js"></script>-->
+        <script src="https://www.telecomprocess.com/main/assets/extra-libs/toastr/dist/build/toastr.min.js"></script>
         <script>
 
 
@@ -360,13 +362,17 @@
                       success: function(response) {
                           if (response['value'] === 'true'){
                             console.log("success");
+                            toastr.success('{{ site.url }} has been updated', 'Success!');
+
                           } else {
                             console.log("failure");
                             console.log(response);
+                            toastr.error('An error occurred while saving {{ site.url }}...', 'Failure');
                           }
                       },
                       error: function(response) {
                           console.log('error', response)
+                          toastr.error('An error occurred while saving {{ site.url }}...', 'Error!');
                       }
                   })
 
