@@ -92,6 +92,34 @@
     <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/lint/lint.css">
     <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/merge/merge.css">
     <link rel="stylesheet" href="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/hint/show-hint.css">
+
+    <link href="https://www.telecomprocess.com/main/assets/extra-libs/toastr/dist/build/toastr.min.css" rel="stylesheet">
+
+    <style media="screen">
+      .hide {
+        display: none;
+      }
+
+      #editor-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      p > textarea {
+        width: 100%;
+      }
+
+      @media (min-width:768px) {
+        #main-wrapper[data-layout=vertical][data-sidebartype=mini-sidebar] .page-wrapper {
+          margin-left:5px;
+        }
+        #main-wrapper[data-layout="vertical"][data-sidebar-position="fixed"] .left-sidebar {
+            display: none;
+        }
+      }
+
+
+    </style>
 </head>
 
 <body>
@@ -174,245 +202,90 @@
                         <!-- Search -->
                         <!-- ============================================================== -->
                         <li class="nav-item search-box">
-                            <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
-                                <div class="d-flex align-items-center">
-                                    <i class="mdi mdi-magnify font-20 mr-1"></i>
-                                    <div class="ml-1 d-none d-sm-block">
-                                        <span>Search</span>
+                            <form class="app-search position-absolute" style="display: block;">
+                              <div class="col-md-9 docs-buttons" style="margin-left: 30vw;">
+                                    <!-- <h3>Toolbar:</h3> -->
+                                    <div class="btn-group">
+                                        <button id="bold-button" type="button" class="btn btn-primary" onclick="insertOrReplace('bold')" title="Bold">
+                                            <span class="docs-tooltip">
+                                      <span class="fas fa-bold"></span>
+                                            </span>
+                                        </button>
+                                        <button id="italic-button" type="button" class="btn btn-primary" onclick="insertOrReplace('italic')" title="Italic">
+                                            <span class="docs-tooltip" >
+                                      <span class="fa fa-italic"></span>
+                                            </span>
+                                        </button>
                                     </div>
+                                    <div class="btn-group">
+                                        <button id="hone-button" type="button" class="btn btn-primary" onclick="insertOrReplace('hone')" title="Insert H1">
+                                            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Insert H1">
+                                      <span class="mdi mdi-format-header-1"></span>
+                                            </span>
+                                        </button>
+                                        <button id="htwo-button" type="button" class="btn btn-primary" onclick="insertOrReplace('htwo')" title="Insert H2">
+                                            <span class="docs-tooltip" >
+                                      <span class="mdi mdi-format-header-2"></span>
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button id="ul-button" type="button" class="btn btn-primary" onclick="insertOrReplace('list')" title="Insert List">
+                                            <span class="docs-tooltip" >
+                                      <span class="mdi mdi-format-list-bulleted"></span>
+                                            </span>
+                                        </button>
+                                        <button id="section-button" type="button" class="btn btn-primary" onclick="insertOrReplace('list')" title="Insert Section Character">
+                                            <span class="docs-tooltip" >
+                                      <span class="mdi mdi-format-section"></span>
+                                            </span>
+                                        </button>
+                                        <button id="link-button" type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="-10" title="Move Up">
+                                            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Create href">
+                                      <span class="mdi mdi-link-variant"></span>
+                                            </span>
+                                        </button>
+                                        <button id="paragraph-button" type="button" class="btn btn-primary" onclick="insertOrReplace('paragraph')" title="Insert Paragraph">
+                                            <span class="docs-tooltip" >
+                                      <span class="mdi mdi-format-pilcrow"></span>
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button id="undo-button" type="button" class="btn btn-primary" data-method="rotate" data-option="-45" title="Rotate Left">
+                                            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Undo">
+                                      <span class="fas fa-undo"></span>
+                                            </span>
+                                        </button>
+                                        <button id="redo-button" type="button" class="btn btn-primary" data-method="rotate" data-option="45" title="Rotate Right">
+                                            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Redo">
+                                      <span class="fa fa-redo"></span>
+                                            </span>
+                                        </button>
+                                    </div>
+
+
+                                    <div class="btn-group">
+                                        <button id="save-button" type="button" class="btn btn-primary" data-method="reset" title="Reset">
+                                            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Save">
+                                      <span class="fas fa-save"></span>
+                                            </span>
+                                        </button>
+                                        <button id="live-button" type="button" class="btn btn-primary" data-method="destroy" title="Live Editor">
+                                            <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Live Editor">
+                                      <span class="fa fa-power-off"></span>
+                                            </span>
+                                        </button>
+                                    </div>
+
                                 </div>
-                            </a>
-                            <form class="app-search position-absolute">
-                                <input type="text" class="form-control" placeholder="Search &amp; enter">
-                                <a class="srh-btn">
-                                    <i class="ti-close"></i>
-                                </a>
                             </form>
                         </li>
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
-                    <ul class="navbar-nav float-right">
-                        <!-- ============================================================== -->
-                        <!-- Messages -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="font-22 mdi mdi-email-outline"></i>
 
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown"
-                                aria-labelledby="2">
-                                <span class="with-arrow">
-                                    <span class="bg-danger"></span>
-                                </span>
-                                <ul class="list-style-none">
-                                    <li>
-                                        <div class="drop-title text-white bg-danger">
-                                            <h4 class="m-b-0 m-t-5">5 New</h4>
-                                            <span class="font-light">Messages</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="message-center message-body">
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)" class="message-item">
-                                                <span class="user-img">
-                                                    <img src="https://www.telecomprocess.com/main/assets/images/users/1.jpg" alt="user"
-                                                        class="rounded-circle">
-                                                    <span class="profile-status online pull-right"></span>
-                                                </span>
-                                                <div class="mail-contnet">
-                                                    <h5 class="message-title">Pavan kumar</h5>
-                                                    <span class="mail-desc">Just see the my admin!</span>
-                                                    <span class="time">9:30 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)" class="message-item">
-                                                <span class="user-img">
-                                                    <img src="https://www.telecomprocess.com/main/assets/images/users/2.jpg" alt="user"
-                                                        class="rounded-circle">
-                                                    <span class="profile-status busy pull-right"></span>
-                                                </span>
-                                                <div class="mail-contnet">
-                                                    <h5 class="message-title">Sonu Nigam</h5>
-                                                    <span class="mail-desc">I've sung a song! See you at</span>
-                                                    <span class="time">9:10 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)" class="message-item">
-                                                <span class="user-img">
-                                                    <img src="https://www.telecomprocess.com/main/assets/images/users/3.jpg" alt="user"
-                                                        class="rounded-circle">
-                                                    <span class="profile-status away pull-right"></span>
-                                                </span>
-                                                <div class="mail-contnet">
-                                                    <h5 class="message-title">Arijit Sinh</h5>
-                                                    <span class="mail-desc">I am a singer!</span>
-                                                    <span class="time">9:08 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)" class="message-item">
-                                                <span class="user-img">
-                                                    <img src="https://www.telecomprocess.com/main/assets/images/users/4.jpg" alt="user"
-                                                        class="rounded-circle">
-                                                    <span class="profile-status offline pull-right"></span>
-                                                </span>
-                                                <div class="mail-contnet">
-                                                    <h5 class="message-title">Pavan kumar</h5>
-                                                    <span class="mail-desc">Just see the my admin!</span>
-                                                    <span class="time">9:02 AM</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-center link text-dark" href="javascript:void(0);">
-                                            <b>See all e-Mails</b>
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- End Messages -->
-                        <!-- ============================================================== -->
-                        <!-- ============================================================== -->
-                        <!-- Comment -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown border-right">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i class="mdi mdi-bell-outline font-22"></i>
-                                <span class="badge badge-pill badge-info noti">3</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
-                                <span class="with-arrow">
-                                    <span class="bg-primary"></span>
-                                </span>
-                                <ul class="list-style-none">
-                                    <li>
-                                        <div class="drop-title bg-primary text-white">
-                                            <h4 class="m-b-0 m-t-5">4 New</h4>
-                                            <span class="font-light">Notifications</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="message-center notifications">
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)" class="message-item">
-                                                <span class="btn btn-danger btn-circle">
-                                                    <i class="fa fa-link"></i>
-                                                </span>
-                                                <div class="mail-contnet">
-                                                    <h5 class="message-title">Luanch Admin</h5>
-                                                    <span class="mail-desc">Just see the my new admin!</span>
-                                                    <span class="time">9:30 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)" class="message-item">
-                                                <span class="btn btn-success btn-circle">
-                                                    <i class="ti-calendar"></i>
-                                                </span>
-                                                <div class="mail-contnet">
-                                                    <h5 class="message-title">Event today</h5>
-                                                    <span class="mail-desc">Just a reminder that you have event</span>
-                                                    <span class="time">9:10 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)" class="message-item">
-                                                <span class="btn btn-info btn-circle">
-                                                    <i class="ti-settings"></i>
-                                                </span>
-                                                <div class="mail-contnet">
-                                                    <h5 class="message-title">Settings</h5>
-                                                    <span class="mail-desc">You can customize this template as you
-                                                        want</span>
-                                                    <span class="time">9:08 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)" class="message-item">
-                                                <span class="btn btn-primary btn-circle">
-                                                    <i class="ti-user"></i>
-                                                </span>
-                                                <div class="mail-contnet">
-                                                    <h5 class="message-title">Pavan kumar</h5>
-                                                    <span class="mail-desc">Just see the my admin!</span>
-                                                    <span class="time">9:02 AM</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-center m-b-5 text-dark" href="javascript:void(0);">
-                                            <strong>Check all notifications</strong>
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- End Comment -->
-                        <!-- ============================================================== -->
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark pro-pic" href=""
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="https://www.telecomprocess.com/main/assets/images/users/2.jpg" alt="user" class="rounded-circle" width="40">
-                                <span class="m-l-5 font-medium d-none d-sm-inline-block">Jonathan Doe <i
-                                        class="mdi mdi-chevron-down"></i></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                                <span class="with-arrow">
-                                    <span class="bg-primary"></span>
-                                </span>
-                                <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
-                                    <div class="">
-                                        <img src="https://www.telecomprocess.com/main/assets/images/users/2.jpg" alt="user" class="rounded-circle"
-                                            width="60">
-                                    </div>
-                                    <div class="m-l-10">
-                                        <h4 class="m-b-0">Jonathan Doe</h4>
-                                        <p class=" m-b-0">jon@gmail.com</p>
-                                    </div>
-                                </div>
-                                <div class="profile-dis scrollable">
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                                    <div class="dropdown-divider"></div>
-                                </div>
-                                <div class="p-l-30 p-10">
-                                    <a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View
-                                        Profile</a>
-                                </div>
-                            </div>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
-                    </ul>
                 </div>
             </nav>
         </header>
@@ -637,141 +510,158 @@
         <!-- ============================================================== -->
         <div class="page-wrapper">
             <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-5 align-self-center">
-                        <h4 class="page-title">Form Tinymce</h4>
-                    </div>
-                    <div class="col-7 align-self-center">
-                        <div class="d-flex align-items-center justify-content-end">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="#">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Form Tinymce</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            <div class="container-fluid">
+            <div class="container-fluid"> <!-- JUMP TO MAIN AREA -->
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="row">
+                <!--<div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Editor Commands</h4>
                                 <h6 class="card-subtitle">Also CodeMirror Toolbar</h6>
-                                <div id="editor-toolbar">
-                                    <p>
-                                      <input id="cm" type="checkbox" name="" value="">
-                                      <input id="tm" type="checkbox" name="" value="">
-                                    </p>
-                                    <p>
-                                      <label for="mode">Select Mode</label>
-                                      <select id="mode">
-                                          <option value="htmlmixed">htmlmixed</option>
-                                          <option value="javascript">javascript</option>
-                                          <option value="css">css</option>
-                                          <option value="python">python</option>
-                                          <option value="php">php</option>
-                                          <option value="perl">perl</option>
-                                          <option value="django">django</option>
-                                          <option value="xml">xml</option>
-                                      </select>
-                                    </p>
 
-                                    <p>
-                                      <label for="select-theme">Select Theme</label>
-                                      <select id="select-theme">
-                                          <option value="oceanic-next">oceanic-next</option>
-                                          <option value="night">night</option>
-                                          <option value="3024-day">3024-day</option>
-                                          <option value="3024-night">3024-night</option>
-                                          <option value="abcdef">abcdef</option>
-                                          <option value="ambiance">ambiance</option>
-                                          <option value="ayu-dark">ayu-dark</option>
-                                          <option value="bespin">bespin</option>
-                                          <option value="cobalt">cobalt</option>
-                                          <option value="dracula">dracula</option>
-                                          <option value="duotone-dark">duotone-dark</option>
-                                          <option value="duotone-light">duotone-light</option>
-                                          <option value="eclipse">eclipse</option>
-                                          <option value="elegant">elegant</option>
-                                          <option value="erlang-dark">erlang-dark</option>
-                                          <option value="gruvbox-dark">gruvbox-dark</option>
-                                          <option value="hopscotch">hopscotch</option>a>
-                                          <option value="icecoder">icecoder</option>
-                                          <option value="isotope">isotope</option>
-                                          <option value="lesser-dark">lesser-dark</option>
-                                          <option value="liquibyte">liquibyte</option>a>
-                                          <option value="lucario">lucario</option>
-                                          <option value="material">material</option>
-                                          <option value="material-darker">material-darker</option>
-                                          <option value="material-palenight">material-palenight</option>
-                                          <option value="material-ocean">material-ocean</option>
-                                          <option value="mdn-like">mdn-like</option>
-                                          <option value="midnight">midnight</option>
-                                          <option value="monokai">monokai</option>
-                                          <option value="moxer">moxer</option>
-                                          <option value="neat">neat</option>
-                                          <option value="neo">neo</option>
-                                          <option value="nord">nord</option>
-                                          <option value="panda-syntax">panda-syntax</option>
-                                          <option value="paraiso-dark">paraiso-dark</option>
-                                          <option value="paraiso-light">paraiso-light</option>
-                                          <option value="pastel-on-dark">pastel-on-dark</option>
-                                          <option value="railscasts">railscasts</option>
-                                          <option value="rubyblue">rubyblue</option>
-                                          <option value="seti">seti</option>
-                                          <option value="shadowfox">shadowfox</option>a>
-                                          <option value="solarized">solarized</option>a>
-                                          <option value="the-matrix">the-matrix</option>
-                                          <option value="tomorrow-night-bright">tomorrow-night-bright</option>
-                                          <option value="tomorrow-night-eighties">tomorrow-night-eighties</option>
-                                          <option value="ttcn">ttcn</option>
-                                          <option value="twilight">twilight</option>
-                                          <option value="vibrant-ink">vibrant-ink</option>
-                                          <option value="xq-dark">xq-dark</option>
-                                          <option value="xq-light">xq-light</option>
-                                          <option value="yeti">yeti</option>
-                                          <option value="idea">idea</option>
-                                          <option value="darcula">darcula</option>
-                                          <option value="yonce">yonce</option>
-                                          <option value="zenburn">zenburn</option>
-                                      </select>
-                                    </p>
-
-                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
+                            <div class="card-header">
+                              <div id="editor-toolbar">
+                                <p>
+                                  <button onclick="window.location.href = `{% url 'sites:main-site-view' %}`;" class="btn waves-effect waves-light btn-info">Home</button>
+                                </p>
+                                <p>
+
+                                  <select id="select-editor">
+                                      <option value="none">-- Select Editor --</option>
+                                      <option value="none">None</option>
+                                      <option value="tm">TinyMCE</option>
+                                      <option value="cm">CodeMirror</option>
+                                  </select>
+                                </p>
+                                  <p>
+
+                                    <select id="select-mode">
+                                        <option value="htmlmixed">-- Select Mode --</option>
+                                        <option value="htmlmixed">htmlmixed</option>
+                                        <option value="text/plain">plain text</option>
+                                        <option value="javascript">javascript</option>
+                                        <option value="css">css</option>
+                                        <option value="python">python</option>
+                                        <option value="php">php</option>
+                                        <option value="perl">perl</option>
+                                        <option value="django">django</option>
+                                        <option value="xml">xml</option>
+                                    </select>
+                                  </p>
+                                  <p>
+
+                                    <select id="select-theme">
+                                        <option value="oceanic-next">-- Select Theme --</option>
+                                        <option value="oceanic-next">oceanic-next</option>
+                                        <option value="night">night</option>
+                                        <option value="3024-day">3024-day</option>
+                                        <option value="3024-night">3024-night</option>
+                                        <option value="abcdef">abcdef</option>
+                                        <option value="ambiance">ambiance</option>
+                                        <option value="ayu-dark">ayu-dark</option>
+                                        <option value="bespin">bespin</option>
+                                        <option value="cobalt">cobalt</option>
+                                        <option value="dracula">dracula</option>
+                                        <option value="duotone-dark">duotone-dark</option>
+                                        <option value="duotone-light">duotone-light</option>
+                                        <option value="eclipse">eclipse</option>
+                                        <option value="elegant">elegant</option>
+                                        <option value="erlang-dark">erlang-dark</option>
+                                        <option value="gruvbox-dark">gruvbox-dark</option>
+                                        <option value="hopscotch">hopscotch</option>a>
+                                        <option value="icecoder">icecoder</option>
+                                        <option value="isotope">isotope</option>
+                                        <option value="lesser-dark">lesser-dark</option>
+                                        <option value="liquibyte">liquibyte</option>a>
+                                        <option value="lucario">lucario</option>
+                                        <option value="material">material</option>
+                                        <option value="material-darker">material-darker</option>
+                                        <option value="material-palenight">material-palenight</option>
+                                        <option value="material-ocean">material-ocean</option>
+                                        <option value="mdn-like">mdn-like</option>
+                                        <option value="midnight">midnight</option>
+                                        <option value="monokai">monokai</option>
+                                        <option value="moxer">moxer</option>
+                                        <option value="neat">neat</option>
+                                        <option value="neo">neo</option>
+                                        <option value="nord">nord</option>
+                                        <option value="panda-syntax">panda-syntax</option>
+                                        <option value="paraiso-dark">paraiso-dark</option>
+                                        <option value="paraiso-light">paraiso-light</option>
+                                        <option value="pastel-on-dark">pastel-on-dark</option>
+                                        <option value="railscasts">railscasts</option>
+                                        <option value="rubyblue">rubyblue</option>
+                                        <option value="seti">seti</option>
+                                        <option value="shadowfox">shadowfox</option>a>
+                                        <option value="solarized">solarized</option>a>
+                                        <option value="the-matrix">the-matrix</option>
+                                        <option value="tomorrow-night-bright">tomorrow-night-bright</option>
+                                        <option value="tomorrow-night-eighties">tomorrow-night-eighties</option>
+                                        <option value="ttcn">ttcn</option>
+                                        <option value="twilight">twilight</option>
+                                        <option value="vibrant-ink">vibrant-ink</option>
+                                        <option value="xq-dark">xq-dark</option>
+                                        <option value="xq-light">xq-light</option>
+                                        <option value="yeti">yeti</option>
+                                        <option value="idea">idea</option>
+                                        <option value="darcula">darcula</option>
+                                        <option value="yonce">yonce</option>
+                                        <option value="zenburn">zenburn</option>
+                                    </select>
+                                  </p>
+                                  <p>
+
+                                    <select id="select-page">
+                                        <option value=0>-- Select Page --</option>
+                                        {% for obj in s_pages %}
+                                          <option value={{ forloop.counter0 }}>{{ obj.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                  </p>
+                                  <p>
+
+                                    <select id="select-page-field">
+                                      <option value="content">-- Select Page Field --</option>
+                                      <option value="content">Content</option>
+                                      <option value="all">All</option>
+                                      <option value="metas">Page Metas</option>
+                                      <option value="meta_description">Meta Description</option>
+                                      <option value="h_one">H1 for Page</option>
+                                      <option value="h_two">H2 for Page</option>
+                                      <option value="custom_script">Page JS</option>
+                                      <option value="stylesheet">Page Style</option>
+                                    </select>
+                                  </p>
+                                  <p>
+                                      <label for="hide-site-fields">Hide Site Fields</label>
+                                      <input type="checkbox" name="hide-site-fields" id="hide-site-fields">
+                                  </p>
+                              </div>
+                            </div>
                             <div class="card-body">
-                                <h4 class="card-title">Tinymce wysihtml5</h4>
-                                <h6 class="card-subtitle">Bootstrap html5 editor</h6>
-                                <form id="website-editor" action="" method="POST" enctype="multipart/form-data">
+                                <!--<h4 class="card-title">Tinymce wysihtml5</h4>
+                                <h6 class="card-subtitle">Bootstrap html5 editor</h6>-->
+                                <form id="website-editor" class="ajax-form" action="" method="POST" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     {{ s_form.as_p }}
                                     <br>
                                     <br>
                                     {{ formset.as_p }}
-                                    <button type='submit' class="btn waves-effect waves-light btn-info">Update</button>
+                                    <button id="site-edit-btn" type='submit' class="btn waves-effect waves-light btn-info">Update</button>
                                 </form>
                             </div>
                         </div>
@@ -993,8 +883,8 @@
     <!-- This Page JS -->
     <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/tinymce.min.js"></script>
     <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/modern/theme.min.js"></script>
-    <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/mobile/theme.min.js"></script>
-    <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/inlite/theme.min.js"></script>
+    <!--<script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/mobile/theme.min.js"></script>
+    <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/inlite/theme.min.js"></script>-->
 
     <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/lib/codemirror.js"></script>
     <script src="https://www.telecomprocess.com/main/assets/libs/sparksuite-codemirror-spell-checker-76b6450/dist/spell-checker.min.js"></script>
@@ -1044,53 +934,513 @@
     <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/merge/merge.js"></script>
     <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/display/panel.js"></script>
     <script src="https://www.telecomprocess.com/main/assets/libs/codemirror/codemirror-5.58.1/addon/hint/anyword-hint.js"></script>
+
+    <script src="https://www.telecomprocess.com/main/assets/extra-libs/toastr/dist/build/toastr.min.js"></script>
     <script>
-        var currentEditor = null;
-        var currentTextarea = null;
-        var currentTheme = "default";
-        var currentMode = "htmlmixed";
-        var themeSelector = document.querySelector('#theme-select'); // input.options[input.selectedIndex].textContent;
-        var modeSelector = document.querySelector('#mode-select'); // input.options[input.selectedIndex].textContent;
-        var cmToggler = document.querySelector('#cm');
-        var tmToggler = document.querySelector('#tm');
-        var pageContents = document.querySelectorAll('.page-textarea-content');
-        var pageJSs = document.querySelectorAll('.page-textarea-js');
-        var pageStyles = document.querySelectorAll('.page-textarea-content');
-        var pageDescriptions = document.querySelectorAll('.page-textarea-description');
-        var pageMetas = document.querySelectorAll('.page-textarea-metas');
-        var pageH1s = document.querySelectorAll('.page-textarea-hone');
-        var pageH2s = document.querySelectorAll('.page-textarea-htwo');
+    let pages = [
+      {% for obj in s_pages %}
+        `{{ obj.name }}`,
+      {% endfor %}
+      'new'
+    ]
+    let fullForm;
+    let siteForm = {};
+    let pageForms = [];
+    let currentTMEditor = null;
+    let currentCMEditor = null;
+    let siteInputs = ['url', 'name', 'title', 'description', 'company_name', 'logo', 'auto_menu'];
+    let siteTexts = ['metas', 'links', 'stylesheet', 'header', 'menu', 'footer', 'scripts', 'custom_script'];
+    let pageInputs = ['dynamic', 'pathpattern', 'route', 'name', 'extension','mime_type', 'display_name', 'title','robots_meta'];
+    let pageTexts = [ 'meta_description', 'metas', 'h_one', 'h_two', 'content', 'custom_script', 'links', 'stylesheet', 'scripts', 'header', 'footer'];
+    let pageSelect = document.querySelector("#select-page");
+    let pageFieldSelect = document.querySelector("#select-page-field");
+    let editorSelect = document.querySelector("#select-editor");
+    let modeSelect = document.querySelector("#select-mode");
+    let themeSelect = document.querySelector("#select-theme");
+    let hideSiteFields = document.querySelector('#hide-site-fields');
+    let liveEditButton = document.querySelector("#live-button");
+    let liveEditorRoute = "{% url 'sites:site-inline' site.id %}?route=/index.html";
+    CodeMirror.modeURL = "../mode/%N/%N.js";
 
-        function stopEditors(){
+    function buildSiteObj() {
+        for (let i = 0; i < siteInputs.length; i++) {
+            const field = siteInputs[i];
+            if (field === 'description') {
+                siteForm[`${field}`] = {
+                    editor: true,
+                    label: `label[for="id_site-${field}"]`,
+                    element: `textarea#id_site-${field}`
+                }
+            } else {
+                siteForm[`${field}`] = {
+                    editor: false,
+                    label: `label[for="id_site-${field}"]`,
+                    element: `input#id_site-${field}`
+                }
+            }
 
         }
+        for (let i = 0; i < siteTexts.length; i++) {
+            const field = siteTexts[i];
+            siteForm[`${field}`] = {
+                editor: true,
+                label: `label[for="id_site-${field}"]`,
+                element: `textarea#id_site-${field}`
+            }
+        }
+    }
 
-        function startCMEditor(tArea){
+    function insertOrReplace(replacement) {
+      if (currentCMEditor !== null) {
+        let sel = currentCMEditor.getSelection();
+        switch (replacement) {
+            case "bold":
+                currentCMEditor.replaceSelection(`<strong>${sel}</strong>`);
+                break;
+            case "italic":
+                currentCMEditor.replaceSelection(`<em>${sel}</em>`);
+                break;
+            case "section":
+                currentCMEditor.replaceSelection(`&sect;`);
+                break;
+            case "list":
+                currentCMEditor.replaceSelection(`<ul><li>${sel}</li></ul>`);
+                break;
+            case "hone":
+                currentCMEditor.replaceSelection(`<h1>${sel}</h1>`);
+                break;
+            case "htwo":
+                currentCMEditor.replaceSelection(`<h2>${sel}</h2>`);
+                break;
+            case "paragraph":
+                currentCMEditor.replaceSelection(`<p>${sel}</p>`);
+                break;
 
+            default:
+                break;
+        }
+      }
+    }
+
+    function buildPagesObj() {
+        for (let i = 0; i < pages.length; i++) {
+            const page = pages[i];
+            let pageForm = {
+                option: `${page}`,
+                value: i
+            }
+            for (let n = 0; n < pageInputs.length; n++) {
+                const field = pageInputs[n];
+                pageForm[`${field}`] = {
+                    main: false,
+                    editor: false,
+                    label: `label[for="id_form-${i}-${field}"]`,
+                    element: `input#id_form-${i}-${field}`
+                }
+            }
+            for (let n = 0; n < pageTexts.length; n++) {
+                const field = pageTexts[n];
+                pageForm[`${field}`] = {
+                    main: field === 'content' ? true : false,
+                    editor: true,
+                    label: `label[for="id_form-${i}-${field}"]`,
+                    element: `textarea#id_form-${i}-${field}`
+                }
+            }
+            pageForms.push(pageForm);
+        }
+    }
+
+    function buildFormObj() {
+        buildSiteObj();
+        buildPagesObj();
+        fullForm = {s: siteForm, ps: pageForms};
+    }
+
+    function changeSiteFields(e) {
+      if (e.target.checked) {
+        //console.log("Checkbox is checked..");
+        for (const key in fullForm.s) {
+            if (Object.hasOwnProperty.call(fullForm.s, key)) {
+                const field = fullForm.s[key];
+                if (key !== 'option' && key !== 'value'){
+                  document.querySelector(`${field.label}`).classList.add('hide');
+                  document.querySelector(`${field.element}`).classList.add('hide');
+                }
+            }
+        }
+      } else {
+        //console.log("Checkbox is not checked..");
+        for (const key in fullForm.s) {
+            if (Object.hasOwnProperty.call(fullForm.s, key)) {
+                const field = fullForm.s[key];
+                if (key !== 'option' && key !== 'value'){
+                  document.querySelector(`${field.label}`).classList.remove('hide');
+                  document.querySelector(`${field.element}`).classList.remove('hide');
+                }
+            }
+        }
+      }
+    }
+
+    function changePage(e) {
+        let selectedVal = e.target.options[e.target.selectedIndex].value;
+        for (let i = 0; i < fullForm.ps.length; i++) {
+            const page = fullForm.ps[i];
+            if (selectedVal == i) {
+              currentPage = page;
+              for (const key in page) {
+                  if (Object.hasOwnProperty.call(page, key)) {
+                      const field = page[key];
+                      if (key !== 'option' && key !== 'value'){
+                        document.querySelector(`${field.label}`).classList.remove('hide');
+                        document.querySelector(`${field.element}`).classList.remove('hide');
+                        document.querySelector(`${field.label}`).classList.add('current');
+                        document.querySelector(`${field.element}`).classList.add('current');
+                      }
+                  }
+              }
+            } else {
+              for (const key in page) {
+                  if (Object.hasOwnProperty.call(page, key)) {
+                      const field = page[key];
+                      if (key !== 'option' && key !== 'value'){
+                        document.querySelector(`${field.label}`).classList.add('hide');
+                        document.querySelector(`${field.element}`).classList.add('hide');
+                        document.querySelector(`${field.label}`).classList.remove('current');
+                        document.querySelector(`${field.element}`).classList.remove('current');
+                      }
+                  }
+              }
+            }
         }
 
-        function startTMEditor(tArea){
+        let event = new Event('change');
 
+        pageFieldSelect.dispatchEvent(event);
+        editorSelect.dispatchEvent(event);
+        modeSelect.dispatchEvent(event);
+        themeSelect.dispatchEvent(event);
+        hideSiteFields.dispatchEvent(event);
+    }
+
+    function changePageField(e) {
+        let currentPage = pageSelect.options[pageSelect.selectedIndex].value;
+        let selectedVal = e.target.options[e.target.selectedIndex].value;
+        for (let i = 0; i < fullForm.ps.length; i++) {
+            const page = fullForm.ps[i];
+            if (currentPage == i) {
+              if (selectedVal === 'all') {
+                for (const key in page) {
+                    if (Object.hasOwnProperty.call(page, key)) {
+                        const field = page[key];
+                        if (key !== 'option' && key !== 'value'){
+                          document.querySelector(`${field.label}`).classList.remove('hide');
+                          document.querySelector(`${field.element}`).classList.remove('hide');
+                        }
+                    }
+                }
+              } else {
+                for (const key in page) {
+                    if (Object.hasOwnProperty.call(page, key)) {
+                        const field = page[key];
+                        if (key !== 'option' && key !== 'value'){
+                          if (key === selectedVal){
+                            document.querySelector(`${field.label}`).classList.remove('hide');
+                            document.querySelector(`${field.element}`).classList.remove('hide');
+                          } else{
+                            document.querySelector(`${field.label}`).classList.add('hide');
+                            document.querySelector(`${field.element}`).classList.add('hide');
+                          }
+
+                        }
+                    }
+                }
+              }
+            }
         }
-        /*
-        $(document).ready(function () {
+        editorSelect.dispatchEvent(new Event('change'));
+    }
 
-            if ($("#mymce").length > 0) {
+    function changeEditor(e) {
+        tinyMCE.remove()
+        if (currentCMEditor !== null) {
+          currentCMEditor.toTextArea();
+          currentCMEditor = null;
+        }
+        let selectedVal = e.target.options[e.target.selectedIndex].value;
+        let activeField = pageFieldSelect.options[pageFieldSelect.selectedIndex].value;
+        let activePage = pageSelect.options[pageSelect.selectedIndex].value;
+        let activeMode = modeSelect.options[modeSelect.selectedIndex].value;
+        let activeTheme = themeSelect.options[themeSelect.selectedIndex].value;
+        let pageType = document.querySelector(`${currentPage.extension.element}`).value
+
+        if (activeField !== 'all'){
+          if (selectedVal === 'tm') {
+            if (activeField === 'content' && pageType.search(/\.html/ig) > -1) {
+
                 tinymce.init({
-                    selector: "textarea#mymce",
+                    selector: `${fullForm.ps[parseInt(activePage)].content.element}`,
                     theme: "modern",
                     height: 300,
-                    plugins: [
-                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-                        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                        "save table contextmenu directionality emoticons template paste textcolor"
+                    setup: function (editor) {
+                        editor.on('change', function () {
+                            editor.save();
+                        });
+                    },
+                    browser_spellcheck: true,
+                    plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+                    menubar: 'file edit view insert format tools table help',
+                    toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap | template link anchor codesample',
+                    toolbar_sticky: true,
+                    image_advtab: true,
+                    link_list: [
+                      { title: 'My page 1', value: 'https://www.tiny.cloud' },
+                      { title: 'My page 2', value: 'http://www.moxiecode.com' }
                     ],
-                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
-
+                    image_list: [
+                      { title: 'My page 1', value: 'https://www.tiny.cloud' },
+                      { title: 'My page 2', value: 'http://www.moxiecode.com' }
+                    ],
+                    image_class_list: [
+                      { title: 'None', value: '' },
+                      { title: 'Some class', value: 'class-name' }
+                    ],
+                    templates: [
+                          { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+                      { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+                      { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+                    ],
+                    template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+                    template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+                    image_caption: true,
+                    quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+                    noneditable_noneditable_class: 'mceNonEditable',
+                    toolbar_mode: 'sliding',
+                    contextmenu: 'link image imagetools table',
                 });
+                currentTMEditor = `${fullForm.ps[parseInt(activePage)].content.element}`;
+
             }
-        });
-        */
+          } else if (selectedVal === 'cm') {
+            if (activeField === 'content' && pageType.search(/\.html/ig) > -1) {
+              let editor = CodeMirror.fromTextArea(document.querySelector(`${fullForm.ps[parseInt(activePage)].content.element}`), {
+                  lineNumbers: true,
+                  styleActiveLine: true,
+                  lineWrapping: true,
+                  matchBrackets: true,
+                  autoCloseTags: true,
+                  theme: `${activeTheme}`,
+                  mode: `${activeMode}`,
+                  onChange: function() { editor.save() },
+                  gutters: ["CodeMirror-lint-markers"],
+                  lint: true,
+                  matchTags: {bothTags: true},
+                  extraKeys: {
+                      "F11": function(cm) {
+                      cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                      },
+                      "Esc": function(cm) {
+                      if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+                      },
+                      "Ctrl-J": "toMatchingTag",
+                      "Alt-F": "findPersistent",
+                      "Ctrl-Space": "autocomplete",
+                  }
+              });
+              editor.setSize(null, 500);
+              currentCMEditor = editor;
+
+            } else {
+              let editor = CodeMirror.fromTextArea(document.querySelector(`${fullForm.ps[parseInt(activePage)][activeField].element}`), {
+                  lineNumbers: true,
+                  styleActiveLine: true,
+                  lineWrapping: true,
+                  matchBrackets: true,
+                  autoCloseTags: true,
+                  onChange: function() { editor.save() },
+                  theme: `${activeTheme}`,
+                  mode: `${activeMode}`,
+                  matchTags: {bothTags: true},
+                  extraKeys: {
+                      "F11": function(cm) {
+                      cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                      },
+                      "Esc": function(cm) {
+                      if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+                      },
+                      "Ctrl-J": "toMatchingTag",
+                      "Alt-F": "findPersistent",
+                      "Ctrl-Space": "autocomplete",
+                  }
+              });
+              editor.setSize(null, 500);
+              currentCMEditor = editor;
+            }
+          }
+        }
+
+    }
+
+    function changeMode(e) {
+        if (currentCMEditor) {
+          let selectedVal = e.target.options[e.target.selectedIndex].value;
+          currentCMEditor.setOption("mode", `${selectedVal}`);
+        }
+    }
+
+    function changeTheme(e) {
+      if (currentCMEditor) {
+        let selectedVal = e.target.options[e.target.selectedIndex].value;
+        currentCMEditor.setOption("theme", `${selectedVal}`);
+      }
+    }
+
+    function goToLive(e) {
+      let pg = pageSelect.options[pageSelect.selectedIndex].value;
+      let exten = document.querySelector(`#id_form-${pg}-extension`).value;
+      let nme = document.querySelector(`#id_form-${pg}-name`).value;
+      let rout = document.querySelector(`#id_form-${pg}-route`).value;
+      if (exten.search(/\.html$/ig) > -1) {
+        liveEditorRoute = `{% url 'sites:site-inline' site.id %}?route=${rout}${nme}${exten}`;
+      } else {
+        liveEditorRoute = "{% url 'sites:site-inline' site.id %}?route=/index.html";
+      }
+      window.location.href = `${liveEditorRoute}`;
+    }
+
+    // pageSelector.addEventListener('change', startEditor)
+
+
+
+    $(document).ready(function () {
+            buildFormObj();
+            pageSelect.addEventListener('change', changePage);
+            pageFieldSelect.addEventListener('change', changePageField);
+            editorSelect.addEventListener('change', changeEditor);
+            modeSelect.addEventListener('change', changeMode);
+            themeSelect.addEventListener('change', changeTheme);
+            hideSiteFields.addEventListener('change', changeSiteFields);
+            liveEditButton.addEventListener('click', goToLive);
+            pageSelect.dispatchEvent(new Event('change'));
+            document.querySelector("#save-button").addEventListener("click", (e)=>{
+              document.querySelector("#site-edit-btn").click();
+            })
+
+            $('.ajax-form').submit(function(e){
+                e.preventDefault()
+                const url = `{% url 'sites:site-edit' site.id %}`;
+                let reqforms = $("input#id_form-TOTAL_FORMS").val();
+                let dat = {
+                  'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                  'site-url': $("#id_site-url").val(),
+                  'site-name': $("#id_site-name").val(),
+                  'site-title': $("#id_site-title").val(),
+                  'site-description': $("#id_site-description").val(),
+                  'site-company_name': $("#id_site-company_name").val(),
+                  'site-logo': $("#id_site-logo").val(),
+                  'site-metas': $("#id_site-metas").val(),
+                  'site-links': $("#id_site-links").val(),
+                  'site-stylesheet': $("#id_site-stylesheet").val(),
+                  'site-header': $("#id_site-header").val(),
+                  'site-menu': $("#id_site-menu").val(),
+                  'site-footer': $("#id_site-footer").val(),
+                  'site-scripts': $("#id_site-scripts").val(),
+                  'site-custom_script': $("#id_site-custom_script").val(),
+                  'form-TOTAL_FORMS': $("#id_form-TOTAL_FORMS").val(),
+                  'form-INITIAL_FORMS': $("#id_form-INITIAL_FORMS").val(),
+                  'form-MIN_NUM_FORMS': $("#id_form-MIN_NUM_FORMS").val(),
+                  'form-MAX_NUM_FORMS': $("#id_form-MAX_NUM_FORMS").val(),
+
+                }
+
+                for (i=0; i < reqforms; i++) {
+                  dat[`form-${i}-pathpattern`] = $(`#id_form-${i}-pathpattern`).val();
+                  dat[`form-${i}-route`] = $(`#id_form-${i}-route`).val();
+                  dat[`form-${i}-name`] = $(`#id_form-${i}-name`).val();
+                  dat[`form-${i}-extension`] = $(`#id_form-${i}-extension`).val();
+                  dat[`form-${i}-mime_type`] = $(`#id_form-${i}-mime_type`).val();
+                  dat[`form-${i}-display_name`] = $(`#id_form-${i}-display_name`).val();
+                  dat[`form-${i}-title`] = $(`#id_form-${i}-title`).val();
+                  dat[`form-${i}-robots_meta`] = $(`#id_form-${i}-robots_meta`).val();
+                  dat[`form-${i}-meta_description`] = $(`#id_form-${i}-meta_description`).val();
+                  dat[`form-${i}-metas`] = $(`#id_form-${i}-metas`).val();
+                  dat[`form-${i}-h_one`] = $(`#id_form-${i}-h_one`).val();
+                  dat[`form-${i}-h_two`] = $(`#id_form-${i}-h_two`).val();
+                  dat[`form-${i}-content`] = $(`#id_form-${i}-content`).val();
+                  dat[`form-${i}-custom_script`] = $(`#id_form-${i}-custom_script`).val();
+                  dat[`form-${i}-links`] = $(`#id_form-${i}-links`).val();
+                  dat[`form-${i}-stylesheet`] = $(`#id_form-${i}-stylesheet`).val();
+                  dat[`form-${i}-scripts`] = $(`#id_form-${i}-scripts`).val();
+                  dat[`form-${i}-header`] = $(`#id_form-${i}-header`).val();
+                  dat[`form-${i}-footer`] = $(`#id_form-${i}-footer`).val();
+                  dat[`form-${i}-id`] = $(`#id_form-${i}-id`).val();
+
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: dat,
+                    success: function(response) {
+                        if (response['value'] === 'true'){
+                          console.log("success");
+                          toastr.success('{{ site.url }} has been updated', 'Success!');
+                        } else {
+                          console.log("failure");
+                          console.log(response);
+                          toastr.error('An error occurred while saving {{ site.url }}...', 'Failure');
+                        }
+                    },
+                    error: function(response) {
+                        console.log('error', response)
+                        toastr.error('An error occurred while saving {{ site.url }}...', 'Error!');
+                    }
+                })
+            });
+    });
+
+    /*$(document).ready(function () {
+            tinymce.init({
+                selector: "textarea.page-textarea-content",
+                theme: "modern",
+                height: 300,
+                plugins: [
+                    "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                    "save table contextmenu directionality emoticons template paste textcolor"
+                ],
+                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+
+            });
+
+            if ($("#mymce3").length > 0) {
+                cmEditor = CodeMirror.fromTextArea(document.querySelector('#mymce3'), {
+                    lineNumbers: true,
+                    styleActiveLine: true,
+                    lineWrapping: true,
+                    matchBrackets: true,
+                    autoCloseTags: true,
+                    mode: "htmlmixed",
+                    gutters: ["CodeMirror-lint-markers"],
+                    lint: true,
+                    matchTags: {bothTags: true},
+                    extraKeys: {
+                        "F11": function(cm) {
+                        cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                        },
+                        "Esc": function(cm) {
+                        if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+                        },
+                        "Ctrl-J": "toMatchingTag",
+                        "Alt-F": "findPersistent",
+                        "Ctrl-Space": "autocomplete",
+                    }
+                });
+
+                cmEditor.setOption("theme", 'night');
+            }
+    });*/
     </script>
 </body>
 
