@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!--Site Metas-->
+    {{ site.metas|safe }}
+    <!--Page Metas-->
+    {{ page.metas|safe }}
+    <!--Site Links-->
+    {{ site.links|safe }}
+    <!--Page Links-->
+    {{ page.links|safe }}
+    <!--Stylesheet-->
+    <style>
+      {% if pagestylesheet %}
+        {{ page.stylesheet|safe }}
+      {% else %}
+        {{ site.stylesheet|safe }}
+      {% endif %}
+    </style>
+    {% if request.user %}
+      <link href="https://www.telecomprocess.com/main/assets/extra-libs/toastr/dist/build/toastr.min.css" rel="stylesheet">
+      <style>
+        .edit-inline *[contentEditable="true"]:focus,
+        .edit-inline *[contentEditable="true"]:hover {
+          outline: 2px solid #2276d2;
+        }
+        div#user-area {
+          padding: 10px 16px;
+          background: #555;
+          color: #f1f1f1;
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 2px solid black;
+          font-family: Arial, Helvetica, sans-serif;
+          flex-wrap: wrap-reverse;
+        }
+        div#editor-toolbar {
+          display: flex;
+          align-items: end;
+          flex-wrap: wrap;
+        }
+
+        #inline-ajax {
+          display: none;
+        }
+
+        #myBtn {
+          display: none;
+          position: fixed;
+          bottom: 20px;
+          right: 30px;
+          z-index: 99;
+          font-size: 18px;
+          border: none;
+          outline: none;
+          background-color: red;
+          color: white;
+          cursor: pointer;
+          padding: 15px;
+          border-radius: 4px;
+        }
+
+        #myBtn:hover {
+          background-color: #555;
+        }
+      </style>
+    {% endif %}
+    <!--Title-->
+    <title>{{ title|safe }}</title>
+  </head>
+  <body>
+{% if request.user %}
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+<div id="user-area">
+
+  <div id="editor-toolbar">
+    <p>
+      <button><a href="{% url 'sites:main-site-view' %}">Home</a></button>
+    </p>
+    <p>
+      <button><a href="{% url 'sites:site-edit' site.id %}">Advanced Editor</a></button>
+    </p>
+  <p>
+    <select id="select-site">
+        <option value="">-- Select Site --</option>
+        {% for obj in sites %}
+            <option value="{% url 'sites:site-inline' obj.id %}?route=/index.html">{{obj.title}}</option>
+        {% endfor %}
+    </select>
+  </p>
+    <p>
+      <select id="select-page">
+          <option value="">-- Select Page --</option>
+          {% for obj in pages %}
+              {% ifequal obj.extension permitted %}
+                <option value="{% url 'sites:site-inline' site.id %}?route={{obj.route}}{{obj.name}}{{obj.extension}}">{{obj.route}}{{obj.name}}{{obj.extension}}</option>
+              {% endifequal %}
+          {% endfor %}
+      </select>
+    </p>
+    <p>
+      <button onclick="saveForm();">Save</button>
+    </p>
+    {% if page.dynamic is False %}
+    <p>
+      <button onclick="window.location.href = `{% url 'sites:api_compiler' site.id %}?route={{page.route}}{{page.name}}{{page.extension}}`;">View Live</button>
+    </p>
+    {% endif %}
+    </div>
+    <h5>Welcome, {{ profile.user.username }}</h5>
+</div>
+<div class="edit-inline">
+{% endif %}
+    <!--Header-->
+    {% if pageheader %}
+      <header id="page-header" class="tinymce-body">
+        {{ page.header|safe }}
+      </header>
+    {% else %}
+      <header id="site-header" class="tinymce-body">
+        {{ site.header|safe }}
+      </header>
+    {% endif %}
+
+    <!--Content-->
+    <div id="page-content" class="tinymce-body">
+      {{ page.content|safe }}
+    </div>
+    <!--Footer-->
+    {% if pagefooter %}
+      <footer id="page-footer" class="tinymce-body">
+        {{ page.footer|safe }}
+      </footer>
+    {% else %}
+      <footer id="site-footer" class="tinymce-body">
+        {{ site.footer|safe }}
+      </footer>
+    {% endif %}
+
+{% if request.user %}
+</div>
+<div id="inline-ajax">
+    <form method="POST" class='ajax-form' id='site-page-form_{{site.id}}'>
+        {% csrf_token %}
+        {{ s_form.as_p }}
+        {{ p_form.as_p }}
+        <button type="submit" id="site-page-btn_{{page.id}}">Update</button>
+    </form>
+</div>
+{% endif %}
+    <!--Site Plugins-->
+    {{ site.scripts|safe }}
+    <!--Page Plugins-->
+    {{ page.scripts|safe }}
+    <!--Site Script-->
+    <script type="text/javascript">
+      {{ site.custom_script|safe }}
+    </script>
+    <!--Page Script-->
+    <script type="text/javascript">
+      {{ page.custom_script|safe }}
+    </script>
+    {% if request.user %}
+        <!-- ============================================================== -->
+        <!-- All Jquery -->
+        <!-- ============================================================== -->
+        <script src="https://www.telecomprocess.com/main/assets/libs/jquery/dist/jquery.min.js"></script>
+        <!-- This Page JS -->
+        <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/tinymce.min.js"></script>
+        <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/modern/theme.min.js"></script>
+        <!--<script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/inlite/theme.min.js"></script>-->
+        <script src="https://www.telecomprocess.com/main/assets/extra-libs/toastr/dist/build/toastr.min.js"></script>
+        <script>
+
+
+
+            /*var emailBodyConfig = {
+                selector: '.tinymce-body',
+                menubar: false,
+                inline: true,
+                plugins: [
+                  'link',
+                  'lists',
+                  'powerpaste',
+                  'autolink',
+                  'tinymcespellchecker'
+                ],
+                toolbar: [
+                  'undo redo | bold italic underline | fontselect fontsizeselect',
+                  'forecolor backcolor | alignleft aligncenter alignright alignfull | numlist bullist outdent indent'
+                ],
+                valid_elements: 'p[style],strong,em,span[style],a[href],ul,ol,li',
+                valid_styles: {
+                  '*': 'font-size,font-family,color,text-decoration,text-align'
+                },
+                powerpaste_word_import: 'clean',
+                powerpaste_html_import: 'clean',
+            };*/
+
+            var tmConfigTwo = {
+              selector: '.tinymce-body',
+              init_instance_callback: function(editor) {
+                editor.on('ExecCommand', function(e) {
+                  document.querySelector(`#id_${tinyMCE.activeEditor.id}`).value = `${tinyMCE.activeEditor.getContent()}`;
+                });
+                editor.on('keyup', function(e) {
+                  document.querySelector(`#id_${tinyMCE.activeEditor.id}`).value = `${tinyMCE.activeEditor.getContent()}`;
+                });
+              },
+              browser_spellcheck: true,
+              inline: true,
+              plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+              menubar: 'file edit view insert format tools table help',
+              toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap | template link anchor codesample',
+              toolbar_sticky: true,
+              image_advtab: true,
+              link_list: [
+                { title: 'My page 1', value: 'https://www.tiny.cloud' },
+                { title: 'My page 2', value: 'http://www.moxiecode.com' }
+              ],
+              image_list: [
+                { title: 'My page 1', value: 'https://www.tiny.cloud' },
+                { title: 'My page 2', value: 'http://www.moxiecode.com' }
+              ],
+              image_class_list: [
+                { title: 'None', value: '' },
+                { title: 'Some class', value: 'class-name' }
+              ],
+              templates: [
+                    { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+                { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+                { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+              ],
+              template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+              template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+              image_caption: true,
+              quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+              noneditable_noneditable_class: 'mceNonEditable',
+              toolbar_mode: 'sliding',
+              contextmenu: 'link image imagetools table',
+            }
+
+            /*
+            var emailBodyConfig = {
+                selector: '.tinymce-body',
+                init_instance_callback: function(editor) {
+                  editor.on('ExecCommand', function(e) {
+                    document.querySelector(`#id_${tinyMCE.activeEditor.id}`).value = `${tinyMCE.activeEditor.getContent()}`;
+                  });
+                  editor.on('keyup', function(e) {
+                    document.querySelector(`#id_${tinyMCE.activeEditor.id}`).value = `${tinyMCE.activeEditor.getContent()}`;
+                  });
+                },
+                menubar: 'file edit view insert format tools table help',
+                browser_spellcheck: true,
+                theme: 'modern',
+                inline: true,
+                plugins: [
+                    "advlist autolink link image lists charmap print hr anchor pagebreak spellchecker",
+                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                    "save table contextmenu directionality emoticons template paste textcolor"
+                ],
+                toolbar: [
+                  'undo redo | styleselect fontselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print media | forecolor backcolor emoticons'
+                ],
+            };
+            */
+
+
+              //tinymce.init(emailHeaderConfig);
+              //tinymce.init(emailBodyConfig);
+              tinymce.init(tmConfigTwo);
+            /*$(document).ready(function () {
+
+
+                if ($("#mymce").length > 0) {
+                    tinymce.init({
+                        selector: "textarea#mymce",
+                        theme: "modern",
+                        height: 300,
+                        plugins: [
+                            "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                            "save table contextmenu directionality emoticons template paste textcolor"
+                        ],
+                        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+
+                    });
+                }
+
+            });*/
+        </script>
+        <script type="text/javascript">
+          document.querySelector("#select-site").addEventListener("change", (e)=>{
+            if (e.target.value !== "") {
+              window.location.href = e.target.value;
+            }
+          })
+          document.querySelector("#select-page").addEventListener("change", (e)=>{
+            if (e.target.value !== "") {
+              window.location.href = e.target.value;
+            }
+          })
+        </script>
+        <script type="text/javascript">
+
+          function saveForm(){
+            document.querySelector("#site-page-btn_{{page.id}}").click();
+          }
+
+
+          $( document ).ready(function() {
+
+              $('.ajax-form').submit(function(e){
+                  e.preventDefault()
+                  console.log("hello")
+
+                  const site_id = "{{ site.id }}";
+                  const page_id = "{{ page.id }}";
+
+                  const url = `/sites/published/${site_id}/${page_id}/`;
+
+                  $.ajax({
+                      type: 'POST',
+                      url: url,
+                      data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'site-url': $('#id_site-url').val(),
+                        'site-name': $('#id_site-name').val(),
+                        'site-title': $('#id_site-title').val(),
+                        'site-description': $('#id_site-description').val(),
+                        'site-company_name': $('#id_site-company_name').val(),
+                        'site-logo': $('#id_site-logo').val(),
+                        'site-metas': $('#id_site-metas').val(),
+                        'site-links': $('#id_site-links').val(),
+                        'site-stylesheet': $('#id_site-stylesheet').val(),
+                        'site-header': $('#id_site-header').val(),
+                        'site-menu': $('#id_site-menu').val(),
+                        'site-footer': $('#id_site-footer').val(),
+                        'site-scripts': $('#id_site-scripts').val(),
+                        'site-custom_script': $('#id_site-custom_script').val(),
+                        'page-pathpattern': $('#id_page-pathpattern').val(),
+                        'page-route': $('#id_page-route').val(),
+                        'page-name': $('#id_page-name').val(),
+                        'page-extension': $('#id_page-extension').val(),
+                        'page-mime_type': $('#id_page-mime_type').val(),
+                        'page-display_name': $('#id_page-display_name').val(),
+                        'page-title': $('#id_page-title').val(),
+                        'page-robots_meta': $('#id_page-robots_meta').val(),
+                        'page-meta_description': $('#id_page-meta_description').val(),
+                        'page-metas': $('#id_page-metas').val(),
+                        'page-h_one': $('#id_page-h_one').val(),
+                        'page-h_two': $('#id_page-h_two').val(),
+                        'page-content': $('#id_page-content').val(),
+                        'page-custom_script': $('#id_page-custom_script').val(),
+                        'page-links': $('#id_page-links').val(),
+                        'page-stylesheet': $('#id_page-stylesheet').val(),
+                        'page-scripts': $('#id_page-scripts').val(),
+                        'page-header': $('#id_page-header').val(),
+                        'page-footer': $('#id_page-footer').val()
+                      },
+                      success: function(response) {
+                          if (response['value'] === 'true'){
+                            console.log("success");
+                            toastr.success('{{ site.url }} has been updated', 'Success!');
+
+                          } else {
+                            console.log("failure");
+                            console.log(response);
+                            toastr.error('An error occurred while saving {{ site.url }}...', 'Failure');
+                          }
+                      },
+                      error: function(response) {
+                          console.log('error', response)
+                          toastr.error('An error occurred while saving {{ site.url }}...', 'Error!');
+                      }
+                  })
+
+              })
+          });
+      </script>
+      <script>
+      //Get the button
+      var mybutton = document.getElementById("myBtn");
+
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function() {scrollFunction()};
+
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          mybutton.style.display = "block";
+        } else {
+          mybutton.style.display = "none";
+        }
+      }
+
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+      </script>
+    {% endif %}
+  </body>
+</html>

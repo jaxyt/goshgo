@@ -8,8 +8,8 @@
 *.pyc
 __pycache__/
 local_settings.py
-db.sqlite3
-db.sqlite3-journal
+# db.sqlite3
+# db.sqlite3-journal
 media
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
@@ -28,11 +28,11 @@ media
 .Python
 build/
 develop-eggs/
-dist/
+# dist/
 downloads/
 eggs/
 .eggs/
-lib/
+# lib/
 lib64/
 parts/
 sdist/
@@ -153,4 +153,4 @@ dmypy.json
 # End of https://www.toptal.com/developers/gitignore/api/django
 
 # aceapi
-main/
+static_cdn/static_root/main/
