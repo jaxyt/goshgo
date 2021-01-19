@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -20,6 +21,7 @@
     {% if request.user %}
       <link href="https://www.telecomprocess.com/main/assets/extra-libs/toastr/dist/build/toastr.min.css" rel="stylesheet">
       <style>
+      /*
         .edit-inline *[contentEditable="true"]:focus,
         .edit-inline *[contentEditable="true"]:hover {
           outline: 2px solid #2276d2;
@@ -33,12 +35,14 @@
           border-bottom: 2px solid black;
           font-family: Arial, Helvetica, sans-serif;
           flex-wrap: wrap-reverse;
-        }
+        }*/
         div#editor-toolbar {
           display: flex;
           align-items: end;
           flex-wrap: wrap;
         }
+
+
 
         #inline-ajax {
           display: none;
@@ -62,6 +66,33 @@
 
         #myBtn:hover {
           background-color: #555;
+        }
+
+        /*           */
+
+        #user-area {
+            padding: 20px;
+
+        }
+
+        .edit-inline *[contentEditable="true"] {
+            padding: 10px;
+        }
+
+        #user-area, div.edit-inline > *[contentEditable="true"] {
+            padding: 20px;
+            margin-bottom: 100px;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        #user-area:hover {
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+        }
+
+        .edit-inline *[contentEditable="true"]:focus,
+        .edit-inline *[contentEditable="true"]:hover {
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
         }
       </style>
     {% endif %}
@@ -164,39 +195,17 @@
         <!-- ============================================================== -->
         <!-- All Jquery -->
         <!-- ============================================================== -->
-        <script src="https://www.telecomprocess.com/main/assets/libs/jquery/dist/jquery.min.js"></script>
+        <!--<script src="https://www.telecomprocess.com/main/assets/libs/jquery/dist/jquery.min.js"></script>-->
         <!-- This Page JS -->
-        <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/tinymce.min.js"></script>
-        <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/modern/theme.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script type="text/javascript" src={% static 'tinymce_5.6.2/tinymce/js/tinymce/tinymce.min.js' %}></script>
+        <!--<script src="https://www.telecomprocess.com/main/assets/libs/tinymce/tinymce.min.js"></script>
+        <script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/modern/theme.min.js"></script>-->
         <!--<script src="https://www.telecomprocess.com/main/assets/libs/tinymce/themes/inlite/theme.min.js"></script>-->
         <script src="https://www.telecomprocess.com/main/assets/extra-libs/toastr/dist/build/toastr.min.js"></script>
         <script>
 
-
-
-            /*var emailBodyConfig = {
-                selector: '.tinymce-body',
-                menubar: false,
-                inline: true,
-                plugins: [
-                  'link',
-                  'lists',
-                  'powerpaste',
-                  'autolink',
-                  'tinymcespellchecker'
-                ],
-                toolbar: [
-                  'undo redo | bold italic underline | fontselect fontsizeselect',
-                  'forecolor backcolor | alignleft aligncenter alignright alignfull | numlist bullist outdent indent'
-                ],
-                valid_elements: 'p[style],strong,em,span[style],a[href],ul,ol,li',
-                valid_styles: {
-                  '*': 'font-size,font-family,color,text-decoration,text-align'
-                },
-                powerpaste_word_import: 'clean',
-                powerpaste_html_import: 'clean',
-            };*/
-
+            /*
             var tmConfigTwo = {
               selector: '.tinymce-body',
               init_instance_callback: function(editor) {
@@ -239,9 +248,9 @@
               toolbar_mode: 'sliding',
               contextmenu: 'link image imagetools table',
             }
-
-            /*
-            var emailBodyConfig = {
+            */
+            var useDarkMode = true;
+            var tmConfigTwo = {
                 selector: '.tinymce-body',
                 init_instance_callback: function(editor) {
                   editor.on('ExecCommand', function(e) {
@@ -251,25 +260,75 @@
                     document.querySelector(`#id_${tinyMCE.activeEditor.id}`).value = `${tinyMCE.activeEditor.getContent()}`;
                   });
                 },
-                menubar: 'file edit view insert format tools table help',
-                browser_spellcheck: true,
-                theme: 'modern',
+                plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+                imagetools_cors_hosts: ['picsum.photos'],
                 inline: true,
-                plugins: [
-                    "advlist autolink link image lists charmap print hr anchor pagebreak spellchecker",
-                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                    "save table contextmenu directionality emoticons template paste textcolor"
+                menubar: 'file edit view insert format tools table help',
+                toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+                toolbar_sticky: true,
+                autosave_ask_before_unload: true,
+                autosave_interval: '30s',
+                autosave_prefix: '{path}{query}-{id}-',
+                autosave_restore_when_empty: false,
+                autosave_retention: '2m',
+                image_advtab: true,
+                link_list: [
+                    { title: 'My page 1', value: 'https://www.tiny.cloud' },
+                    { title: 'My page 2', value: 'http://www.moxiecode.com' }
                 ],
-                toolbar: [
-                  'undo redo | styleselect fontselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print media | forecolor backcolor emoticons'
+                image_list: [
+                    { title: 'My page 1', value: 'https://www.tiny.cloud' },
+                    { title: 'My page 2', value: 'http://www.moxiecode.com' }
                 ],
+                image_class_list: [
+                    { title: 'None', value: '' },
+                    { title: 'Some class', value: 'class-name' }
+                ],
+                importcss_append: true,
+                file_picker_callback: function (callback, value, meta) {
+                // Provide file and text for the link dialog
+                if (meta.filetype === 'file') {
+                    callback('https://www.google.com/logos/google.jpg', { text: 'My text' });
+                }
+
+                // Provide image and alt text for the image dialog
+                if (meta.filetype === 'image') {
+                    callback('https://www.google.com/logos/google.jpg', { alt: 'My alt text' });
+                }
+
+                // Provide alternative source and posted for the media dialog
+                if (meta.filetype === 'media') {
+                    callback('movie.mp4', { source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg' });
+                }
+                },
+                templates: [
+                    { title: 'New Table', description: 'creates a new table', content: '<div class=""><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+                    { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+                    { title: 'New list with dates', description: 'New List with dates', content: '<div class=""><span class="">cdate</span><br /><span class="">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+                ],
+                template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+                template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+                image_caption: true,
+                quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+                noneditable_noneditable_class: 'mceNonEditable',
+                toolbar_mode: 'sliding',
+                contextmenu: 'link image imagetools table',
+                skin: useDarkMode ? 'oxide-dark' : 'oxide',
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
             };
+
+            /*
+
             */
+
+            $(document).ready(function () {
+                tinymce.init(tmConfigTwo);
+            })
 
 
               //tinymce.init(emailHeaderConfig);
               //tinymce.init(emailBodyConfig);
-              tinymce.init(tmConfigTwo);
+              //tinymce.init(tmConfigTwo);
             /*$(document).ready(function () {
 
 
